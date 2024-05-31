@@ -1,8 +1,7 @@
 import 'dart:developer';
-
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:teaching_game/app/modules/numeralSkills/views/numeral_skills_view.dart';
 import 'package:teaching_game/app/modules/preMathSkills/views/pre_math_skills_view.dart';
 import 'package:teaching_game/app/utils/utils.dart';
@@ -13,14 +12,6 @@ class HomeController extends GetxController with WidgetsBindingObserver {
     super.onInit();
     WidgetsBinding.instance.addObserver(this);
     _startMusic();
-
-    // _audioPlayer.onPlayerStateChanged.listen(
-    //   (event) {
-    //     if (isMusicPaused.value == true) {
-    //       isMusicPaused.value = false;
-    //     }
-    //   },
-    // );
   }
 
   @override
@@ -32,18 +23,13 @@ class HomeController extends GetxController with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) async {
-    log("STATE>>>>>$state");
     if (state == AppLifecycleState.inactive ||
-        state == AppLifecycleState.hidden) {
-      await _audioPlayer.pause();
-      isMusicPaused.value = true;
-    }
-
+        state == AppLifecycleState.hidden) return;
     if (state == AppLifecycleState.paused) {
       await _audioPlayer.stop();
-    } else if (state == AppLifecycleState.resumed) {
-      await _audioPlayer.pause();
-      isMusicPaused.value = true;
+    } else if (state == AppLifecycleState.resumed &&
+        isMusicPaused.value == false) {
+      await _audioPlayer.play();
     } else if (state == AppLifecycleState.detached) {
       await _audioPlayer.stop();
     }
@@ -101,8 +87,9 @@ class HomeController extends GetxController with WidgetsBindingObserver {
 
   _startMusic() async {
     try {
-      await _audioPlayer.play(AssetSource('musics/home_music.mp3'));
-      await _audioPlayer.setReleaseMode(ReleaseMode.loop);
+      await _audioPlayer.setAsset('assets/musics/home_music.mp3');
+      await _audioPlayer.setLoopMode(LoopMode.all);
+      await _audioPlayer.play();
     } catch (e) {
       log("Failed to start the music >>> $e");
     }
@@ -111,8 +98,8 @@ class HomeController extends GetxController with WidgetsBindingObserver {
   pauseOrResumeMusic() async {
     try {
       if (isMusicPaused.value) {
-        await _audioPlayer.resume();
         isMusicPaused.value = false;
+        await _audioPlayer.play();
       } else {
         await _audioPlayer.pause();
         isMusicPaused.value = true;
