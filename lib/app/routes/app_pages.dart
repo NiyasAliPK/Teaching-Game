@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import 'package:teaching_game/app/modules/BigOrSmall/bindings/big_or_small_binding.dart';
+import 'package:teaching_game/app/modules/BigOrSmall/views/big_or_small_view.dart';
 import 'package:teaching_game/app/modules/home/bindings/home_binding.dart';
 import 'package:teaching_game/app/modules/home/views/home_view.dart';
 import 'package:teaching_game/app/modules/numeralSkills/bindings/numeral_skills_binding.dart';
@@ -29,6 +31,11 @@ class AppPages {
       name: _Paths.NUMERAL_SKILLS,
       page: () => NumeralSkillsView(),
       binding: NumeralSkillsBinding(),
+    ),
+    GetPage(
+      name: _Paths.BIG_OR_SMALL,
+      page: () => BigOrSmallView(),
+      binding: BigOrSmallBinding(),
     ),
   ];
 }

@@ -11,7 +11,7 @@ class HomeController extends GetxController with WidgetsBindingObserver {
   void onInit() {
     super.onInit();
     WidgetsBinding.instance.addObserver(this);
-    _startMusic();
+    // _startMusic();
   }
 
   @override
