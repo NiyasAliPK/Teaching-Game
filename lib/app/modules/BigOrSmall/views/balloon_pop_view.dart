@@ -66,7 +66,7 @@ class BalloonPoperView extends StatelessWidget {
             now.difference(lastPressedTime!) > const Duration(seconds: 2)) {
           lastPressedTime = now;
           Get.showSnackbar(const GetSnackBar(
-            message: "Click again to go to home",
+            message: "Click again to go back to home",
             duration: Duration(seconds: 2),
           ));
           return false;

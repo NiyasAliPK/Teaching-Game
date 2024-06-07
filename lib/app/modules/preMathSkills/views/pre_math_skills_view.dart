@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:teaching_game/app/modules/BigOrSmall/views/big_or_small_view.dart';
+import 'package:teaching_game/app/modules/BigOrSmall/views/select_big_small_view.dart';
 import 'package:teaching_game/app/utils/utils.dart';
 
 import '../controllers/pre_math_skills_controller.dart';

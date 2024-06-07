@@ -29,11 +29,15 @@ class FishBowlView extends StatelessWidget {
                   left: context.width * 0.05, top: context.height * 0.05),
               child: GetBuilder<BigOrSmallController>(
                 builder: (controller) => Wrap(
-                  spacing: context.width * 0.1, // gap between adjacent chips
-                  // runSpacing: context.height * 0.1, // gap between lines
+                  spacing: context.width * 0.1,
                   children: _controller.fishes.map((item) {
                     return item.value
-                        ? const SizedBox()
+                        ? SizedBox(
+                            width: item.value
+                                ? context.width / 4
+                                : context.width / 6,
+                            height: context.height / 8,
+                          )
                         : Draggable(
                             // value true means the fish is in tank already
                             data: item,
@@ -56,7 +60,6 @@ class FishBowlView extends StatelessWidget {
                               decoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(25)),
-                                // color: primaryBlue.withOpacity(0.5),
                                 image: DecorationImage(
                                     scale: 2, image: AssetImage(item.path)),
                               ),
@@ -74,18 +77,9 @@ class FishBowlView extends StatelessWidget {
           Positioned(
             bottom: 0,
             child: Padding(
-              padding: EdgeInsets.only(
-                  // left: context.width * 0.280,
-                  bottom: context.width * 0.0325),
+              padding: EdgeInsets.only(bottom: context.width * 0.0325),
               child: DragTarget(
                 onAcceptWithDetails: (data) {
-                  // for (var element in _controller.acceptedListOfFish) {
-                  //   // if (element.name ==
-                  //   //     (data.data as DraggableItemModel).name) {
-                  //   //   return;
-                  //   // }
-                  // }
-
                   _controller.updateFishInTank(
                       item: data.data as DraggableItemModel);
                 },
@@ -151,7 +145,7 @@ class FishBowlView extends StatelessWidget {
             now.difference(lastPressedTime!) > const Duration(seconds: 2)) {
           lastPressedTime = now;
           Get.showSnackbar(const GetSnackBar(
-            message: "Click again to go to home",
+            message: "Click again to go back to home",
             duration: Duration(seconds: 2),
           ));
           return false;

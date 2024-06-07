@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:teaching_game/app/modules/BigOrSmall/bindings/big_or_small_binding.dart';
 import 'package:teaching_game/app/modules/BigOrSmall/views/balloon_pop_view.dart';
+import 'package:teaching_game/app/modules/BigOrSmall/views/big_or_small_view.dart';
 import 'package:teaching_game/app/modules/BigOrSmall/views/fish_bowl_view.dart';
+import 'package:teaching_game/app/modules/BigOrSmall/views/select_big_small_view.dart';
 import 'package:teaching_game/app/modules/home/views/home_view.dart';
 import 'package:teaching_game/app/utils/utils.dart';
 
@@ -80,9 +82,40 @@ class BigOrSmallController extends GetxController {
         path: 'assets/images/fish_1.png', value: false, name: 'fish'),
   ];
 
+  List<DraggableItemModel> listForBigsAndSmalls = [
+    DraggableItemModel(
+        path: 'assets/images/tree.png', value: false, name: 'tree'),
+    DraggableItemModel(
+        path: 'assets/images/tree.png', value: true, name: 'tree'),
+    DraggableItemModel(
+        path: 'assets/images/car.png', value: false, name: 'car'),
+    DraggableItemModel(path: 'assets/images/car.png', value: true, name: 'car'),
+    DraggableItemModel(
+        path: 'assets/images/house.png', value: false, name: 'house'),
+    DraggableItemModel(
+        path: 'assets/images/house.png', value: true, name: 'house'),
+    DraggableItemModel(
+        path: 'assets/images/apple.png', value: false, name: 'apple'),
+    DraggableItemModel(
+        path: 'assets/images/apple.png', value: true, name: 'apple'),
+    DraggableItemModel(
+        path: 'assets/images/fish_2.png', value: false, name: 'fish_2'),
+    DraggableItemModel(
+        path: 'assets/images/fish_2.png', value: true, name: 'fish_2'),
+    DraggableItemModel(
+        path: 'assets/images/elephant.png', value: false, name: 'elephant'),
+    DraggableItemModel(
+        path: 'assets/images/elephant.png', value: true, name: 'elephant'),
+    DraggableItemModel(
+        path: 'assets/images/beach_ball.png', value: false, name: 'beach_ball'),
+    DraggableItemModel(
+        path: 'assets/images/beach_ball.png', value: true, name: 'beach_ball'),
+  ];
+
   final List<DraggableItemModel> smallAccpetedList = [];
   final List<DraggableItemModel> bigAccpetedList = [];
   final List<DraggableItemModel> acceptedListOfFish = [];
+  int countOfCompletedInTaskFour = 0;
 
   checkForCompletionTaskOne() {
     if (smallAccpetedList.length == 4 && bigAccpetedList.length == 4) {
@@ -114,19 +147,47 @@ class BigOrSmallController extends GetxController {
       if (element.id == item.id) {
         element.value = true;
         update();
-        checkForCompletionTaskThree();
+        _checkForCompletionTaskThree();
         break;
       }
     }
   }
 
-  checkForCompletionTaskThree() {
+  _checkForCompletionTaskThree() {
     if (acceptedListOfFish.length == 12) {
+      showDialogueForCompletion(
+        callback: () {
+          Get.offAll(() => const SelectSmallAndBig());
+        },
+      );
+    }
+  }
+
+  _checkForCompletionOfFour() {}
+
+  selectBigOrsmall(
+      {required DraggableItemModel item, required bool selectedValue}) {
+    if (item.value == selectedValue) {
+      //TODO show a prompt to say wrong selection
+    }
+
+    for (var element in listForBigsAndSmalls) {
+      if (element.name == item.name &&
+          element.value == item.value &&
+          element.value == selectedValue) {
+        element.isTaskObjectiveComplted = true;
+        countOfCompletedInTaskFour++;
+        update();
+        break;
+      }
+    }
+    if (countOfCompletedInTaskFour == 14) {
       showDialogueForCompletion(
         callback: () {
           Get.offAll(() => HomeView());
         },
       );
+      return;
     }
   }
 

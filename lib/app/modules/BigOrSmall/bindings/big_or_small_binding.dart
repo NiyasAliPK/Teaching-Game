@@ -17,15 +17,21 @@ class DraggableItemModel {
   final String path;
   bool value;
   final String name;
+  bool isTaskObjectiveComplted;
 
   final int id = Random().nextInt(999);
   DraggableItemModel(
-      {required this.path, required this.value, required this.name});
+      {required this.path,
+      required this.value,
+      required this.name,
+      this.isTaskObjectiveComplted = false});
 
   factory DraggableItemModel.fromMap(Map<String, dynamic> map) {
     return DraggableItemModel(
-        path: map['path'] as String,
-        value: map['isBig'] as bool,
-        name: map['name'] as String);
+      path: map['path'] as String,
+      value: map['isBig'] as bool,
+      name: map['name'] as String,
+      isTaskObjectiveComplted: map['isTaskObjectiveCompleted'] as bool,
+    );
   }
 }
