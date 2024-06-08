@@ -18,7 +18,7 @@ class PreMathSkillsView extends GetView<PreMathSkillsController> {
         child: ListView.separated(
             itemBuilder: (context, index) => GestureDetector(
                   onTap: () {
-                    Get.to(() => BigOrSmallView());
+                    Get.to(() => const BigOrSmallView());
                   },
                   child: Container(
                     height: context.height / 5,

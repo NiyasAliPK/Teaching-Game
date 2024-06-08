@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teaching_game/app/modules/BigOrSmall/bindings/big_or_small_binding.dart';
-import 'package:teaching_game/app/modules/BigOrSmall/views/balloon_pop_view.dart';
-import 'package:teaching_game/app/modules/BigOrSmall/views/fish_bowl_view.dart';
 import 'package:teaching_game/app/utils/utils.dart';
 import '../controllers/big_or_small_controller.dart';
 
-class BigOrSmallView extends GetView<BigOrSmallController> {
-  BigOrSmallView({super.key});
+class BigOrSmallView extends StatefulWidget {
+  const BigOrSmallView({super.key});
 
+  @override
+  State<BigOrSmallView> createState() => _BigOrSmallViewState();
+}
+
+class _BigOrSmallViewState extends State<BigOrSmallView> {
   final BigOrSmallController _controller = Get.put(BigOrSmallController());
+
+  @override
+  void initState() {
+    showDialogueForInstructions(
+        instruction:
+            "Drag and drop small items near to the small kid and big items to the big kid.");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +51,7 @@ class BigOrSmallView extends GetView<BigOrSmallController> {
                       decoration: BoxDecoration(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(25)),
-                        color: Colors.grey[300],
+                        color: Colors.transparent,
                         image: DecorationImage(
                             opacity: 0.5, image: AssetImage(item.path)),
                       ),
@@ -79,6 +90,7 @@ class BigOrSmallView extends GetView<BigOrSmallController> {
                     if (data.value) {
                       return true;
                     } else {
+                      showDialogueForWrongAttempt();
                       return false;
                     }
                   },
@@ -138,6 +150,7 @@ class BigOrSmallView extends GetView<BigOrSmallController> {
                     if (!data.value) {
                       return true;
                     } else {
+                      showDialogueForWrongAttempt();
                       return false;
                     }
                   },

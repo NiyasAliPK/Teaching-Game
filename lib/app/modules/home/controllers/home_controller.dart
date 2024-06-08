@@ -11,7 +11,7 @@ class HomeController extends GetxController with WidgetsBindingObserver {
   void onInit() {
     super.onInit();
     WidgetsBinding.instance.addObserver(this);
-    // _startMusic();
+    _startMusic();
   }
 
   @override
@@ -88,6 +88,7 @@ class HomeController extends GetxController with WidgetsBindingObserver {
   _startMusic() async {
     try {
       await _audioPlayer.setAsset('assets/musics/home_music.mp3');
+      await _audioPlayer.setVolume(0.25);
       await _audioPlayer.setLoopMode(LoopMode.all);
       await _audioPlayer.play();
     } catch (e) {

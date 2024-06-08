@@ -5,10 +5,26 @@ import 'package:teaching_game/app/modules/BigOrSmall/controllers/big_or_small_co
 import 'package:teaching_game/app/modules/home/views/home_view.dart';
 import 'package:teaching_game/app/utils/utils.dart';
 
-class FishBowlView extends StatelessWidget {
-  FishBowlView({super.key});
+class FishBowlView extends StatefulWidget {
+  const FishBowlView({super.key});
+
+  @override
+  State<FishBowlView> createState() => _FishBowlViewState();
+}
+
+class _FishBowlViewState extends State<FishBowlView> {
   final BigOrSmallController _controller = Get.put(BigOrSmallController());
+
   DateTime? lastPressedTime;
+
+  @override
+  void initState() {
+    showDialogueForInstructions(
+        instruction:
+            "Drag and drop all the fishes into the fish tank to complete the task.");
+    _controller.fishes.shuffle();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,29 +47,34 @@ class FishBowlView extends StatelessWidget {
                 builder: (controller) => Wrap(
                   spacing: context.width * 0.1,
                   children: _controller.fishes.map((item) {
-                    return item.value
-                        ? SizedBox(
+                    return item.isTaskObjectiveComplted
+                        ? Container(
+                            margin: EdgeInsets.all(context.height * 0.015),
+                            decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25)),
+                            ),
                             width: item.value
-                                ? context.width / 4
-                                : context.width / 6,
-                            height: context.height / 8,
+                                ? context.width / 5
+                                : context.width / 8,
+                            height: context.height / 12,
                           )
                         : Draggable(
                             // value true means the fish is in tank already
                             data: item,
-                            onDraggableCanceled: (velocity, offset) {},
+
                             feedback: Container(
                               decoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(25)),
-                                color: Colors.grey[300],
+                                color: Colors.transparent,
                                 image: DecorationImage(
                                     opacity: 0.5, image: AssetImage(item.path)),
                               ),
                               width: item.value
-                                  ? context.width / 4
-                                  : context.width / 6,
-                              height: context.height / 8,
+                                  ? context.width / 5
+                                  : context.width / 8,
+                              height: context.height / 12,
                             ),
                             child: Container(
                               margin: EdgeInsets.all(context.height * 0.015),
@@ -61,14 +82,12 @@ class FishBowlView extends StatelessWidget {
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(25)),
                                 image: DecorationImage(
-                                    scale: 2, image: AssetImage(item.path)),
+                                    image: AssetImage(item.path)),
                               ),
                               width: item.value
-                                  ? context.width / 4
-                                  : context.width / 6,
-                              height: item.value
-                                  ? context.height / 6
-                                  : context.height / 12,
+                                  ? context.width / 5
+                                  : context.width / 8,
+                              height: context.height / 12,
                             ),
                           );
                   }).toList(),
@@ -90,6 +109,8 @@ class FishBowlView extends StatelessWidget {
                     child: Stack(
                       children: [
                         Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal: context.width * 0.05),
                           decoration: BoxDecoration(
                             image: const DecorationImage(
                                 // fit: BoxFit.cover,
@@ -97,7 +118,7 @@ class FishBowlView extends StatelessWidget {
                               'assets/images/fish_tank.png',
                             )),
                             borderRadius: BorderRadius.circular(25),
-                            color: Colors.white.withOpacity(0.35),
+                            // color: Colors.white.withOpacity(0.35),
                           ),
                           width: context.width,
                           height: context.height / 2,

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:lottie/lottie.dart';
 
 class SafePadding extends StatelessWidget {
@@ -28,29 +29,9 @@ const Color primaryYellow = Color(0xFFFFDC00);
 const Color primaryRed = Color(0xFFFF4136);
 const Color primaryPink = Color(0xFFFF85A1);
 
-bool doubleClickToExit() {
-  log("message");
-  DateTime lastTimeBackButtonWasPressed = DateTime.now();
-  final now = DateTime.now();
-  final difference = now.difference(lastTimeBackButtonWasPressed);
-  final backButtonHasNotBeenPressedOrHasBeenPressedLongTimeAgo =
-      difference >= const Duration(seconds: 2);
-  final userWantsToExitApp =
-      backButtonHasNotBeenPressedOrHasBeenPressedLongTimeAgo;
+showDialogueForCompletion({required Function() callback}) async {
+  final audioPlayer = AudioPlayer();
 
-  if (userWantsToExitApp) {
-    log("message 1");
-
-    lastTimeBackButtonWasPressed = DateTime.now();
-    return false;
-  } else {
-    log("message 2");
-
-    return true;
-  }
-}
-
-showDialogueForCompletion({required Function()? callback}) {
   Get.dialog(
       barrierDismissible: false,
       PopScope(
@@ -69,7 +50,10 @@ showDialogueForCompletion({required Function()? callback}) {
                 style: ElevatedButton.styleFrom(
                     backgroundColor: primaryPink,
                     fixedSize: Size(Get.size.width / 2, 0)),
-                onPressed: callback,
+                onPressed: () {
+                  audioPlayer.dispose();
+                  callback();
+                },
                 child: const Text(
                   'NEXT',
                   style: TextStyle(color: Colors.white),
@@ -78,4 +62,82 @@ showDialogueForCompletion({required Function()? callback}) {
           ],
         ),
       ));
+  try {
+    await audioPlayer.setAsset('assets/musics/level_completed.mp3');
+    await audioPlayer.play();
+  } catch (e) {
+    log("Failed to start the music >>> $e");
+  }
+}
+
+showDialogueForInstructions({required String instruction}) async {
+  await Future.delayed(const Duration(milliseconds: 500));
+  Get.dialog(
+      barrierDismissible: false,
+      PopScope(
+        canPop: false,
+        child: Column(
+          children: [
+            Expanded(
+                child: Scaffold(
+              backgroundColor: Colors.transparent,
+              body: SafePadding(
+                child: Center(
+                  child: Text(
+                    instruction,
+                    style: TextStyle(
+                        color: Colors.white, fontSize: Get.width * 0.08),
+                  ),
+                ),
+              ),
+            )),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: primaryPink,
+                    fixedSize: Size(Get.size.width / 3, 0)),
+                onPressed: () {
+                  Get.back();
+                },
+                child: const Text(
+                  'OK',
+                  style: TextStyle(color: Colors.white),
+                )),
+            SizedBox(height: Get.size.height * 0.05)
+          ],
+        ),
+      ));
+}
+
+showDialogueForWrongAttempt() async {
+  final audioPlayer = AudioPlayer();
+  Get.dialog(
+      barrierDismissible: true,
+      Column(
+        children: [
+          Expanded(
+              child: Container(
+            color: Colors.transparent,
+            child: Center(
+              child: Lottie.asset(
+                'assets/animations/wrong.json',
+                repeat: false,
+              ),
+            ),
+          )),
+          SizedBox(height: Get.size.height * 0.05)
+        ],
+      ));
+  try {
+    await audioPlayer.setAsset('assets/musics/wrong_attempt.mp3');
+    await audioPlayer.play();
+  } catch (e) {
+    log("Failed to start the music >>> $e");
+  }
+  await Future.delayed(const Duration(milliseconds: 700)).then(
+    (value) async {
+      log("then called");
+      Get.back();
+      await audioPlayer.dispose();
+    },
+  );
 }

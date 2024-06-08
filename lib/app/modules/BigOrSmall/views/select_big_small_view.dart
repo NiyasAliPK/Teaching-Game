@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teaching_game/app/modules/BigOrSmall/controllers/big_or_small_controller.dart';
 import 'package:teaching_game/app/modules/home/views/home_view.dart';
+import 'package:teaching_game/app/utils/utils.dart';
 
 class SelectSmallAndBig extends StatefulWidget {
   const SelectSmallAndBig({super.key});
@@ -17,6 +18,10 @@ class _SelectSmallAndBigState extends State<SelectSmallAndBig> {
   @override
   void initState() {
     _controller.listForBigsAndSmalls.shuffle(Random());
+    showDialogueForInstructions(
+        instruction:
+            "Click on each item and select yellow star if the item is big and green tick if the item is small. Do this for all items to complete the task.");
+
     super.initState();
   }
 
@@ -47,7 +52,8 @@ class _SelectSmallAndBigState extends State<SelectSmallAndBig> {
                       return Stack(
                         children: [
                           PopupMenuButton(
-                            // enabled: item.isTaskObjectiveComplted ? false : true,
+                            enabled:
+                                item.isTaskObjectiveComplted ? false : true,
                             onSelected: (value) {
                               _controller.selectBigOrsmall(
                                   item: item, selectedValue: value);

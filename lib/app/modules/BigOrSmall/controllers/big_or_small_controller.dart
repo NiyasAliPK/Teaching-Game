@@ -37,21 +37,27 @@ class BigOrSmallController extends GetxController {
     DraggableItemModel(
         path: 'assets/images/red_balloon.png', value: false, name: 'balloon'),
     DraggableItemModel(
-        path: 'assets/images/red_balloon.png', value: false, name: 'balloon'),
+        path: 'assets/images/red_balloon.png', value: true, name: 'balloon'),
     DraggableItemModel(
         path: 'assets/images/red_balloon.png', value: false, name: 'balloon'),
     DraggableItemModel(
-        path: 'assets/images/red_balloon.png', value: false, name: 'balloon'),
+        path: 'assets/images/red_balloon.png', value: true, name: 'balloon'),
     DraggableItemModel(
         path: 'assets/images/red_balloon.png', value: false, name: 'balloon'),
     DraggableItemModel(
-        path: 'assets/images/red_balloon.png', value: false, name: 'balloon'),
+        path: 'assets/images/red_balloon.png', value: true, name: 'balloon'),
     DraggableItemModel(
         path: 'assets/images/red_balloon.png', value: false, name: 'balloon'),
     DraggableItemModel(
-        path: 'assets/images/red_balloon.png', value: false, name: 'balloon'),
+        path: 'assets/images/red_balloon.png', value: true, name: 'balloon'),
     DraggableItemModel(
         path: 'assets/images/red_balloon.png', value: false, name: 'balloon'),
+    DraggableItemModel(
+        path: 'assets/images/red_balloon.png', value: true, name: 'balloon'),
+    DraggableItemModel(
+        path: 'assets/images/red_balloon.png', value: false, name: 'balloon'),
+    DraggableItemModel(
+        path: 'assets/images/red_balloon.png', value: true, name: 'balloon'),
   ];
 
   List<DraggableItemModel> fishes = [
@@ -59,27 +65,27 @@ class BigOrSmallController extends GetxController {
     DraggableItemModel(
         path: 'assets/images/fish_1.png', value: false, name: 'fish'),
     DraggableItemModel(
+        path: 'assets/images/fish_2.png', value: true, name: 'fish'),
+    DraggableItemModel(
+        path: 'assets/images/fish_1.png', value: false, name: 'fish'),
+    DraggableItemModel(
+        path: 'assets/images/fish_2.png', value: true, name: 'fish'),
+    DraggableItemModel(
+        path: 'assets/images/fish_1.png', value: false, name: 'fish'),
+    DraggableItemModel(
+        path: 'assets/images/fish_2.png', value: true, name: 'fish'),
+    DraggableItemModel(
+        path: 'assets/images/fish_1.png', value: false, name: 'fish'),
+    DraggableItemModel(
+        path: 'assets/images/fish_2.png', value: true, name: 'fish'),
+    DraggableItemModel(
+        path: 'assets/images/fish_1.png', value: false, name: 'fish'),
+    DraggableItemModel(
+        path: 'assets/images/fish_1.png', value: true, name: 'fish'),
+    DraggableItemModel(
         path: 'assets/images/fish_2.png', value: false, name: 'fish'),
     DraggableItemModel(
-        path: 'assets/images/fish_1.png', value: false, name: 'fish'),
-    DraggableItemModel(
-        path: 'assets/images/fish_2.png', value: false, name: 'fish'),
-    DraggableItemModel(
-        path: 'assets/images/fish_1.png', value: false, name: 'fish'),
-    DraggableItemModel(
-        path: 'assets/images/fish_2.png', value: false, name: 'fish'),
-    DraggableItemModel(
-        path: 'assets/images/fish_1.png', value: false, name: 'fish'),
-    DraggableItemModel(
-        path: 'assets/images/fish_2.png', value: false, name: 'fish'),
-    DraggableItemModel(
-        path: 'assets/images/fish_1.png', value: false, name: 'fish'),
-    DraggableItemModel(
-        path: 'assets/images/fish_1.png', value: false, name: 'fish'),
-    DraggableItemModel(
-        path: 'assets/images/fish_2.png', value: false, name: 'fish'),
-    DraggableItemModel(
-        path: 'assets/images/fish_1.png', value: false, name: 'fish'),
+        path: 'assets/images/fish_1.png', value: true, name: 'fish'),
   ];
 
   List<DraggableItemModel> listForBigsAndSmalls = [
@@ -116,45 +122,47 @@ class BigOrSmallController extends GetxController {
   final List<DraggableItemModel> bigAccpetedList = [];
   final List<DraggableItemModel> acceptedListOfFish = [];
   int countOfCompletedInTaskFour = 0;
+  int countOfballoonsPopped = 0;
 
   checkForCompletionTaskOne() {
     if (smallAccpetedList.length == 4 && bigAccpetedList.length == 4) {
       showDialogueForCompletion(
         callback: () {
-          Get.offAll(() => BalloonPoperView());
+          Get.offAll(() => const BalloonPoperView());
         },
       );
     }
   }
 
   _checkForCompletionTaskTwo() {
-    for (var element in balloonsToPop) {
-      if (!element.value) {
-        return;
-      }
+    if (countOfballoonsPopped == 6) {
+      // if the loop completed without returning means all the balloons have popped
+      showDialogueForCompletion(
+        callback: () {
+          Get.offAll(() => const FishBowlView());
+        },
+      );
     }
-    // if the loop completed without returning means all the balloons have popped
-    showDialogueForCompletion(
-      callback: () {
-        Get.offAll(() => FishBowlView());
-      },
-    );
   }
 
   updateFishInTank({required DraggableItemModel item}) {
-    acceptedListOfFish.add(item);
-    for (var element in fishes) {
-      if (element.id == item.id) {
-        element.value = true;
-        update();
-        _checkForCompletionTaskThree();
-        break;
+    if (item.value) {
+      for (var element in fishes) {
+        if (element.id == item.id) {
+          acceptedListOfFish.add(item);
+          element.isTaskObjectiveComplted = true;
+          update();
+          _checkForCompletionTaskThree();
+          break;
+        }
       }
+    } else {
+      showDialogueForWrongAttempt();
     }
   }
 
   _checkForCompletionTaskThree() {
-    if (acceptedListOfFish.length == 12) {
+    if (acceptedListOfFish.length == 6) {
       showDialogueForCompletion(
         callback: () {
           Get.offAll(() => const SelectSmallAndBig());
@@ -163,12 +171,22 @@ class BigOrSmallController extends GetxController {
     }
   }
 
-  _checkForCompletionOfFour() {}
+  _checkForCompletionOfFour() {
+    if (countOfCompletedInTaskFour == 14) {
+      showDialogueForCompletion(
+        callback: () {
+          Get.offAll(() => HomeView());
+        },
+      );
+      return;
+    }
+  }
 
   selectBigOrsmall(
       {required DraggableItemModel item, required bool selectedValue}) {
-    if (item.value == selectedValue) {
-      //TODO show a prompt to say wrong selection
+    if (item.value != selectedValue) {
+      showDialogueForWrongAttempt();
+      return;
     }
 
     for (var element in listForBigsAndSmalls) {
@@ -181,19 +199,23 @@ class BigOrSmallController extends GetxController {
         break;
       }
     }
-    if (countOfCompletedInTaskFour == 14) {
-      showDialogueForCompletion(
-        callback: () {
-          Get.offAll(() => HomeView());
-        },
-      );
-      return;
-    }
+    _checkForCompletionOfFour();
   }
 
-  popTheBalloon({required int position}) {
-    balloonsToPop[position].value = true;
-    update();
-    _checkForCompletionTaskTwo();
+  popTheBalloon({required DraggableItemModel value}) {
+    if (value.value == false) // this means the balloon is big
+    {
+      for (var element in balloonsToPop) {
+        if (element.id == value.id) {
+          element.isTaskObjectiveComplted = true;
+          countOfballoonsPopped++;
+          update();
+          break;
+        }
+      }
+      _checkForCompletionTaskTwo();
+    } else {
+      showDialogueForWrongAttempt();
+    }
   }
 }

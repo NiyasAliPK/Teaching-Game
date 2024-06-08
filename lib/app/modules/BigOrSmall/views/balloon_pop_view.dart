@@ -3,12 +3,28 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:teaching_game/app/modules/BigOrSmall/controllers/big_or_small_controller.dart';
 import 'package:teaching_game/app/modules/home/views/home_view.dart';
+import 'package:teaching_game/app/utils/utils.dart';
 
-class BalloonPoperView extends StatelessWidget {
+// ignore: must_be_immutable
+class BalloonPoperView extends StatefulWidget {
+  const BalloonPoperView({super.key});
+
+  @override
+  State<BalloonPoperView> createState() => _BalloonPoperViewState();
+}
+
+class _BalloonPoperViewState extends State<BalloonPoperView> {
   final BigOrSmallController _controller = Get.put(BigOrSmallController());
-  BalloonPoperView({super.key});
 
   DateTime? lastPressedTime;
+
+  @override
+  void initState() {
+    showDialogueForInstructions(
+        instruction:
+            "Click on each big balloons to pop them, Pop all the big ones to complete the task.");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,25 +39,36 @@ class BalloonPoperView extends StatelessWidget {
               end: Alignment.topCenter,
               colors: [Color(0xFFAEEEEE), Color(0xFF20B2AA)],
             ))),
-            GetBuilder<BigOrSmallController>(
-              builder: (controller) => GridView.builder(
-                itemCount: _controller.balloonsToPop.length,
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: context.width / 3),
-                itemBuilder: (context, index) => GestureDetector(
-                  onTap: _controller.balloonsToPop[index].value
-                      ? null
-                      : () {
-                          _controller.popTheBalloon(position: index);
-                        },
-                  child: SizedBox(
-                    width: context.width / 4,
-                    height: context.height / 8,
-                    child: _controller.balloonsToPop[index].value
-                        ? Lottie.asset('assets/animations/pop.json',
-                            repeat: false)
-                        : Image.asset(_controller.balloonsToPop[index].path),
-                  ),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: context.width * 0.25, left: context.width * 0.045),
+              child: GetBuilder<BigOrSmallController>(
+                builder: (controller) => Wrap(
+                  alignment: WrapAlignment.center,
+                  spacing: context.width * 0.03,
+                  children: _controller.balloonsToPop
+                      .map(
+                        (item) => GestureDetector(
+                          onTap: item.isTaskObjectiveComplted
+                              ? null
+                              : () {
+                                  _controller.popTheBalloon(value: item);
+                                },
+                          child: SizedBox(
+                            width: item.value
+                                ? context.width / 5
+                                : context.width / 3,
+                            height: item.value
+                                ? context.height / 9
+                                : context.height / 7,
+                            child: item.isTaskObjectiveComplted
+                                ? Lottie.asset('assets/animations/pop.json',
+                                    repeat: false)
+                                : Image.asset(item.path),
+                          ),
+                        ),
+                      )
+                      .toList(),
                 ),
               ),
             ),
@@ -53,8 +80,7 @@ class BalloonPoperView extends StatelessWidget {
                 child: Text(
                     style: TextStyle(
                         fontSize: context.width * 0.05, color: Colors.red),
-                    // overflow: TextOverflow.ellipsis,
-                    "Click on the balloon to pop it, Pop all the balloons to complete this round."),
+                    "Click on the big balloons to pop them,\nPop all of them to complete."),
               ),
             )
           ],
