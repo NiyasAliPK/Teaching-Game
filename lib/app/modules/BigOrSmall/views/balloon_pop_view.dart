@@ -20,6 +20,7 @@ class _BalloonPoperViewState extends State<BalloonPoperView> {
 
   @override
   void initState() {
+    _controller.balloonsToPop.shuffle();
     showDialogueForInstructions(
         instruction:
             "Click on each big balloons to pop them, Pop all the big ones to complete the task.");

@@ -124,6 +124,22 @@ class BigOrSmallController extends GetxController {
   int countOfCompletedInTaskFour = 0;
   int countOfballoonsPopped = 0;
 
+  addToBigOrSmallList({required DraggableItemModel item}) {
+    if (item.value == true) {
+      bigAccpetedList.add(item);
+    } else {
+      smallAccpetedList.add(item);
+    }
+    for (var element in dragItems) {
+      if (element.id == item.id) {
+        element.isTaskObjectiveComplted = true;
+        update();
+        break;
+      }
+    }
+    checkForCompletionTaskOne();
+  }
+
   checkForCompletionTaskOne() {
     if (smallAccpetedList.length == 4 && bigAccpetedList.length == 4) {
       showDialogueForCompletion(
@@ -146,7 +162,7 @@ class BigOrSmallController extends GetxController {
   }
 
   updateFishInTank({required DraggableItemModel item}) {
-    if (item.value) {
+    if (!item.value) {
       for (var element in fishes) {
         if (element.id == item.id) {
           acceptedListOfFish.add(item);
@@ -182,7 +198,7 @@ class BigOrSmallController extends GetxController {
     }
   }
 
-  selectBigOrsmall(
+  selectBigOrSmall(
       {required DraggableItemModel item, required bool selectedValue}) {
     if (item.value != selectedValue) {
       showDialogueForWrongAttempt();

@@ -21,7 +21,7 @@ class _FishBowlViewState extends State<FishBowlView> {
   void initState() {
     showDialogueForInstructions(
         instruction:
-            "Drag and drop all the fishes into the fish tank to complete the task.");
+            "Drag and drop all the small fishes into the fish tank to complete the task.");
     _controller.fishes.shuffle();
     super.initState();
   }
@@ -49,7 +49,7 @@ class _FishBowlViewState extends State<FishBowlView> {
                   children: _controller.fishes.map((item) {
                     return item.isTaskObjectiveComplted
                         ? Container(
-                            margin: EdgeInsets.all(context.height * 0.015),
+                            margin: EdgeInsets.all(context.height * 0.0115),
                             decoration: const BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(25)),
@@ -77,7 +77,7 @@ class _FishBowlViewState extends State<FishBowlView> {
                               height: context.height / 12,
                             ),
                             child: Container(
-                              margin: EdgeInsets.all(context.height * 0.015),
+                              margin: EdgeInsets.all(context.height * 0.0115),
                               decoration: BoxDecoration(
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(25)),

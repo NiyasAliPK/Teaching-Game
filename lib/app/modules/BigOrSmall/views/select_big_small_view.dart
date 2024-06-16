@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:teaching_game/app/modules/BigOrSmall/controllers/big_or_small_controller.dart';
 import 'package:teaching_game/app/modules/home/views/home_view.dart';
@@ -42,8 +43,44 @@ class _SelectSmallAndBigState extends State<SelectSmallAndBig> {
                 ),
               ),
             ),
+            Container(
+              margin: EdgeInsets.only(
+                  top: context.height * 0.06, left: context.width * 0.65),
+              padding: EdgeInsets.only(
+                  left: context.width * 0.05, top: context.height * 0.01),
+              height: context.height / 12,
+              width: context.width / 3.15,
+              decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(15)),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    children: [
+                      const Text("BIG"),
+                      SizedBox(width: context.width * 0.05),
+                      Image.asset(
+                        'assets/images/yellow_star.png',
+                        width: context.width * 0.07,
+                      )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text("SMALL"),
+                      SizedBox(width: context.width * 0.05),
+                      Image.asset(
+                        'assets/images/green_tick.png',
+                        width: context.width * 0.07,
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
             Padding(
-                padding: EdgeInsets.only(top: context.width * 0.1),
+                padding: EdgeInsets.only(top: context.width * 0.275),
                 child: GetBuilder<BigOrSmallController>(
                   builder: (controller) => Wrap(
                     spacing: context.width * 0.05,
@@ -55,7 +92,7 @@ class _SelectSmallAndBigState extends State<SelectSmallAndBig> {
                             enabled:
                                 item.isTaskObjectiveComplted ? false : true,
                             onSelected: (value) {
-                              _controller.selectBigOrsmall(
+                              _controller.selectBigOrSmall(
                                   item: item, selectedValue: value);
                             },
                             color: Colors.transparent,
@@ -99,8 +136,8 @@ class _SelectSmallAndBigState extends State<SelectSmallAndBig> {
                                   ? context.width / 4
                                   : context.width / 6,
                               height: item.value
-                                  ? context.height / 6
-                                  : context.height / 12,
+                                  ? context.height / 7.25
+                                  : context.height / 14,
                             ),
                           ),
                           Positioned(

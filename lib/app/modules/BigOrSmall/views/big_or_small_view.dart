@@ -36,45 +36,75 @@ class _BigOrSmallViewState extends State<BigOrSmallView> {
           colors: [Color(0xFFAEEEEE), Color(0xFF20B2AA)],
         ))),
         Padding(
-          padding: EdgeInsets.only(top: context.height * 0.05),
-          child: GetBuilder<BigOrSmallController>(
-            builder: (controller) {
-              return Wrap(
-                alignment: WrapAlignment.center,
-                spacing: context.width * 0.03,
-                runSpacing: context.height * 0.01,
-                children: _controller.dragItems.map((item) {
-                  return Draggable(
-                    data: item,
-                    onDraggableCanceled: (velocity, offset) {},
-                    feedback: Container(
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(25)),
-                        color: Colors.transparent,
-                        image: DecorationImage(
-                            opacity: 0.5, image: AssetImage(item.path)),
-                      ),
-                      width: item.value ? context.width / 4 : context.width / 6,
-                      height: context.height / 8,
-                    ),
-                    child: Container(
-                      margin: EdgeInsets.all(context.height * 0.015),
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(25)),
-                        // color: primaryBlue.withOpacity(0.5),
-                        image: DecorationImage(
-                            scale: 2, image: AssetImage(item.path)),
-                      ),
-                      width: item.value ? context.width / 4 : context.width / 6,
-                      height:
-                          item.value ? context.height / 6 : context.height / 12,
-                    ),
-                  );
-                }).toList(),
-              );
-            },
+          padding: EdgeInsets.only(top: context.height * 0.075),
+          child: Column(
+            children: [
+              Container(
+                height: context.height / 1.7,
+                decoration: BoxDecoration(
+                    color: primaryBlue.withOpacity(0.25),
+                    borderRadius: const BorderRadius.all(Radius.circular(25))),
+                child: GetBuilder<BigOrSmallController>(
+                  builder: (controller) {
+                    return Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: context.width * 0.03,
+                      runSpacing: context.height * 0.01,
+                      children: _controller.dragItems.map((item) {
+                        return item.isTaskObjectiveComplted
+                            ? Container(
+                                margin: EdgeInsets.all(context.height * 0.015),
+                                decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(25)),
+                                ),
+                                width: item.value
+                                    ? context.width / 4
+                                    : context.width / 6,
+                                height: item.value
+                                    ? context.height / 6
+                                    : context.height / 12,
+                              )
+                            : Draggable(
+                                data: item,
+                                onDraggableCanceled: (velocity, offset) {},
+                                feedback: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(25)),
+                                    color: Colors.transparent,
+                                    image: DecorationImage(
+                                        opacity: 0.75,
+                                        image: AssetImage(item.path)),
+                                  ),
+                                  width: item.value
+                                      ? context.width / 4
+                                      : context.width / 6,
+                                  height: context.height / 8,
+                                ),
+                                child: Container(
+                                  margin:
+                                      EdgeInsets.all(context.height * 0.015),
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(25)),
+                                    image: DecorationImage(
+                                        scale: 2, image: AssetImage(item.path)),
+                                  ),
+                                  width: item.value
+                                      ? context.width / 4
+                                      : context.width / 6,
+                                  height: item.value
+                                      ? context.height / 6
+                                      : context.height / 12,
+                                ),
+                              );
+                      }).toList(),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
         Positioned(
@@ -95,15 +125,8 @@ class _BigOrSmallViewState extends State<BigOrSmallView> {
                     }
                   },
                   onAcceptWithDetails: (data) {
-                    for (var element in _controller.bigAccpetedList) {
-                      if (element.name ==
-                          (data.data as DraggableItemModel).name) {
-                        return;
-                      }
-                    }
-                    _controller.bigAccpetedList
-                        .add(data.data as DraggableItemModel);
-                    _controller.checkForCompletionTaskOne();
+                    _controller.addToBigOrSmallList(
+                        item: data.data as DraggableItemModel);
                   },
                   builder: (context, candidateData, rejectedData) {
                     return Container(
@@ -115,11 +138,9 @@ class _BigOrSmallViewState extends State<BigOrSmallView> {
                       height: context.height / 4,
                       child: Column(
                         children: [
-                          Container(
-                            color: Colors.red,
+                          SizedBox(
                             height: context.height / 6,
-                            child: Image.asset(
-                                'assets/images/big_small_girl_1.jpg'),
+                            child: const Center(child: Text('BIG')),
                           ),
                           Expanded(
                               child: ListView.builder(
@@ -155,15 +176,8 @@ class _BigOrSmallViewState extends State<BigOrSmallView> {
                     }
                   },
                   onAcceptWithDetails: (data) {
-                    for (var element in _controller.smallAccpetedList) {
-                      if (element.name ==
-                          (data.data as DraggableItemModel).name) {
-                        return;
-                      }
-                    }
-                    _controller.smallAccpetedList
-                        .add(data.data as DraggableItemModel);
-                    _controller.checkForCompletionTaskOne();
+                    _controller.addToBigOrSmallList(
+                        item: data.data as DraggableItemModel);
                   },
                   builder: (context, candidateData, rejectedData) {
                     return Container(
@@ -175,11 +189,9 @@ class _BigOrSmallViewState extends State<BigOrSmallView> {
                       height: context.height / 4,
                       child: Column(
                         children: [
-                          Container(
-                            color: Colors.red,
+                          SizedBox(
                             height: context.height / 6,
-                            child: Image.asset(
-                                'assets/images/big_small_girl_1.jpg'),
+                            child: const Center(child: Text('SMALL')),
                           ),
                           Expanded(
                               child: ListView.builder(

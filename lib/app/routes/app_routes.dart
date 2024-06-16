@@ -8,6 +8,9 @@ abstract class Routes {
   static const PRE_MATH_SKILLS = _Paths.PRE_MATH_SKILLS;
   static const NUMERAL_SKILLS = _Paths.NUMERAL_SKILLS;
   static const BIG_OR_SMALL = _Paths.BIG_OR_SMALL;
+  static const INTRO_VIDEO = _Paths.INTRO_VIDEO;
+  static const FAR_NEAR = _Paths.FAR_NEAR;
+  static const MORE_LESS = _Paths.MORE_LESS;
 }
 
 abstract class _Paths {
@@ -15,4 +18,7 @@ abstract class _Paths {
   static const PRE_MATH_SKILLS = '/pre-math-skills';
   static const NUMERAL_SKILLS = '/numeral-skills';
   static const BIG_OR_SMALL = '/big-or-small';
+  static const INTRO_VIDEO = '/intro-video';
+  static const FAR_NEAR = '/far-near';
+  static const MORE_LESS = '/more-less';
 }
