@@ -42,7 +42,7 @@ class _BalloonPoperViewState extends State<BalloonPoperView> {
             ))),
             Padding(
               padding: EdgeInsets.only(
-                  top: context.width * 0.25, left: context.width * 0.045),
+                  top: context.width * 0.25, left: context.width * 0.075),
               child: GetBuilder<BigOrSmallController>(
                 builder: (controller) => Wrap(
                   alignment: WrapAlignment.center,

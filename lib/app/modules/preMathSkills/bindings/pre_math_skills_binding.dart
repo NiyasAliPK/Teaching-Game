@@ -10,3 +10,9 @@ class PreMathSkillsBinding extends Bindings {
     );
   }
 }
+
+class PreMathItemModel {
+  final String name;
+  double progress;
+  PreMathItemModel({required this.name, required this.progress});
+}

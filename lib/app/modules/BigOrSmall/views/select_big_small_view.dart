@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:teaching_game/app/modules/BigOrSmall/controllers/big_or_small_controller.dart';
 import 'package:teaching_game/app/modules/home/views/home_view.dart';
@@ -45,7 +44,7 @@ class _SelectSmallAndBigState extends State<SelectSmallAndBig> {
             ),
             Container(
               margin: EdgeInsets.only(
-                  top: context.height * 0.06, left: context.width * 0.65),
+                  top: context.height * 0.06, left: context.width * 0.35),
               padding: EdgeInsets.only(
                   left: context.width * 0.05, top: context.height * 0.01),
               height: context.height / 12,

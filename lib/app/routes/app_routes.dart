@@ -11,6 +11,8 @@ abstract class Routes {
   static const INTRO_VIDEO = _Paths.INTRO_VIDEO;
   static const FAR_NEAR = _Paths.FAR_NEAR;
   static const MORE_LESS = _Paths.MORE_LESS;
+  static const EMPTY_OR_FULL = _Paths.EMPTY_OR_FULL;
+  static const SAME_OR_DIFFERENT = _Paths.SAME_OR_DIFFERENT;
 }
 
 abstract class _Paths {
@@ -21,4 +23,6 @@ abstract class _Paths {
   static const INTRO_VIDEO = '/intro-video';
   static const FAR_NEAR = '/far-near';
   static const MORE_LESS = '/more-less';
+  static const EMPTY_OR_FULL = '/empty-or-full';
+  static const SAME_OR_DIFFERENT = '/same-or-different';
 }

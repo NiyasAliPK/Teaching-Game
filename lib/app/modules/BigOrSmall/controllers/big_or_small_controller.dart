@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:teaching_game/app/db/premath_hive.dart';
+import 'package:teaching_game/app/db/premath_hive_box.dart';
 import 'package:teaching_game/app/modules/BigOrSmall/bindings/big_or_small_binding.dart';
 import 'package:teaching_game/app/modules/BigOrSmall/views/balloon_pop_view.dart';
 import 'package:teaching_game/app/modules/BigOrSmall/views/big_or_small_view.dart';
@@ -187,13 +189,23 @@ class BigOrSmallController extends GetxController {
     }
   }
 
-  _checkForCompletionOfFour() {
+  _checkForCompletionOfTaskFour() {
     if (countOfCompletedInTaskFour == 14) {
       showDialogueForCompletion(
         callback: () {
           Get.offAll(() => HomeView());
         },
       );
+      final PreMathHiveBoxController preMathHiveBoxController =
+          Get.put(PreMathHiveBoxController());
+      if (preMathHiveBoxController.premathBox.values.length > 1) {
+        log("This level is already marked as completed");
+        return; // This means the current level is already completed and no need to update or add the same level again to the db
+      }
+      preMathHiveBoxController.updateProgress(
+          value: PreMathProgressModel(
+              progress: 1,
+              id: DateTime.now().millisecondsSinceEpoch.toString()));
       return;
     }
   }
@@ -215,7 +227,7 @@ class BigOrSmallController extends GetxController {
         break;
       }
     }
-    _checkForCompletionOfFour();
+    _checkForCompletionOfTaskFour();
   }
 
   popTheBalloon({required DraggableItemModel value}) {

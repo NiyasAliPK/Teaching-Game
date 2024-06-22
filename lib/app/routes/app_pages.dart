@@ -2,6 +2,10 @@ import 'package:get/get.dart';
 
 import 'package:teaching_game/app/modules/BigOrSmall/bindings/big_or_small_binding.dart';
 import 'package:teaching_game/app/modules/BigOrSmall/views/big_or_small_view.dart';
+import 'package:teaching_game/app/modules/SameOrDifferent/bindings/same_or_different_binding.dart';
+import 'package:teaching_game/app/modules/SameOrDifferent/views/same_or_different_view.dart';
+import 'package:teaching_game/app/modules/emptyOrFull/bindings/empty_or_full_binding.dart';
+import 'package:teaching_game/app/modules/emptyOrFull/views/empty_or_full_view.dart';
 import 'package:teaching_game/app/modules/farNear/bindings/far_near_binding.dart';
 import 'package:teaching_game/app/modules/farNear/views/far_near_view.dart';
 import 'package:teaching_game/app/modules/home/bindings/home_binding.dart';
@@ -57,6 +61,16 @@ class AppPages {
       name: _Paths.MORE_LESS,
       page: () => MoreLessView(),
       binding: MoreLessBinding(),
+    ),
+    GetPage(
+      name: _Paths.EMPTY_OR_FULL,
+      page: () => EmptyOrFullView(),
+      binding: EmptyOrFullBinding(),
+    ),
+    GetPage(
+      name: _Paths.SAME_OR_DIFFERENT,
+      page: () => SameOrDifferentView(),
+      binding: SameOrDifferentBinding(),
     ),
   ];
 }
