@@ -60,9 +60,10 @@ class SameOrDifferentController extends GetxController {
   udpateTaskProgress({required int index}) {
     taskProgress[index] = true;
     update();
+    successSoundPlayer();
     if (checkforCompletionTaskOne()) {
       showDialogueForCompletion(callback: () {
-        Get.offAll(() => const SameOrDifferentSlideTwo());
+        Get.to(() => const SameOrDifferentSlideTwo());
       });
     }
   }
@@ -74,17 +75,15 @@ class SameOrDifferentController extends GetxController {
   updateMatched({required DraggableItemModel item}) {
     for (var element in dragTargets) {
       if (element.name == item.name) {
-        log("message1");
         element.isTaskObjectiveComplted = true;
       }
     }
     for (var element in draggables) {
       if (element.name == item.name) {
-        log("message2");
-
         element.isTaskObjectiveComplted = true;
       }
     }
+    successSoundPlayer();
   }
 
   checkForCompletionTaskTwo() {

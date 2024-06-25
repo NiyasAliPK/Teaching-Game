@@ -1,47 +1,43 @@
+import 'dart:developer';
+
+import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:teaching_game/app/modules/BigOrSmall/views/big_or_small_view.dart';
+import 'package:teaching_game/app/modules/home/controllers/home_controller.dart';
+import 'package:teaching_game/app/modules/introVideo/controllers/intro_video_controller.dart';
 import 'package:teaching_game/app/utils/utils.dart';
 import 'package:video_player/video_player.dart';
 
 class IntroVideoView extends StatefulWidget {
-  const IntroVideoView({super.key});
+  final int index;
+  final String path;
+  const IntroVideoView({super.key, required this.index, required this.path});
 
   @override
-  State<IntroVideoView> createState() => _IntroVideoViewState();
+  _IntroVideoViewState createState() => _IntroVideoViewState();
 }
 
 class _IntroVideoViewState extends State<IntroVideoView> {
-  VideoPlayerController? _videoPlayerController;
+  FlickManager? flickManager;
 
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-      SystemUiOverlay.top,
-      SystemUiOverlay.bottom,
-    ]);
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
-    _videoPlayerController = VideoPlayerController.asset(
-        'assets/musics/big_buck_bunny_720p_20mb.mp4',
-        videoPlayerOptions: VideoPlayerOptions())
-      ..initialize().then((_) {
-        _videoPlayerController!.play();
-        _videoPlayerController!.setLooping(false);
-        setState(() {});
-      });
+    log("message>>>>${widget.path}");
+    flickManager = FlickManager(
+      videoPlayerController: VideoPlayerController.asset(widget.path),
+    );
     super.initState();
   }
 
   @override
   void dispose() {
-    _videoPlayerController!.dispose();
+    flickManager?.dispose();
 
     super.dispose();
   }
+
+  final IntroVideoController _controller = Get.put(IntroVideoController());
 
   @override
   Widget build(BuildContext context) {
@@ -52,22 +48,45 @@ class _IntroVideoViewState extends State<IntroVideoView> {
           children: [
             AspectRatio(
               aspectRatio: context.width / context.height,
-              child: VideoPlayer(_videoPlayerController!),
+              child: Center(
+                child: FlickVideoPlayer(
+                  flickVideoWithControls: const FlickVideoWithControls(
+                    controls: SizedBox.shrink(),
+                  ),
+                  preferredDeviceOrientation: const [
+                    DeviceOrientation.landscapeRight,
+                    DeviceOrientation.landscapeLeft,
+                  ],
+                  preferredDeviceOrientationFullscreen: const [
+                    DeviceOrientation.landscapeRight,
+                    DeviceOrientation.landscapeLeft,
+                  ],
+                  flickManager: flickManager!,
+                ),
+              ),
             ),
             Positioned(
               bottom: context.width * 0.01,
               right: context.width * 0.015,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white.withOpacity(0.75)),
+                      backgroundColor: primaryPink.withOpacity(0.75)),
                   onPressed: () async {
                     await SystemChrome.setPreferredOrientations([
                       DeviceOrientation.portraitUp,
                       DeviceOrientation.portraitDown,
                     ]);
-                    Get.offAll(() => const BigOrSmallView());
+                    flickManager?.flickControlManager?.seekTo(Duration.zero);
+                    await flickManager?.flickControlManager?.pause();
+                    _controller.navigateScreen(index: widget.index);
+                    var homecontroller = Get.find<HomeController>();
+                    if (homecontroller.isManuallyPaused) return;
+                    homecontroller.pauseOrResumeMusic();
                   },
-                  child: const Text("Skip")),
+                  child: const Text(
+                    "Continue",
+                    style: TextStyle(color: Colors.white),
+                  )),
             )
           ],
         ),

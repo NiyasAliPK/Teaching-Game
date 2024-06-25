@@ -1,9 +1,11 @@
 import 'dart:developer';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:lottie/lottie.dart';
+import 'package:vibration/vibration.dart';
 
 class SafePadding extends StatelessWidget {
   final Widget child;
@@ -108,8 +110,16 @@ showDialogueForInstructions({required String instruction}) async {
       ));
 }
 
+List<String> pathsOfFailedSounds = [
+  'assets/musics/surprise.mp3',
+  'assets/musics/game_over.mp3',
+  'assets/musics/wrong_attempt.mp3'
+];
 showDialogueForWrongAttempt() async {
   final audioPlayer = AudioPlayer();
+  if ((await Vibration.hasVibrator()) == null ? false : true) {
+    await Vibration.vibrate(duration: 1000);
+  }
   Get.dialog(
       barrierDismissible: true,
       Column(
@@ -128,16 +138,27 @@ showDialogueForWrongAttempt() async {
         ],
       ));
   try {
-    await audioPlayer.setAsset('assets/musics/wrong_attempt.mp3');
+    await audioPlayer.setAsset(pathsOfFailedSounds[math.Random().nextInt(3)]);
     await audioPlayer.play();
   } catch (e) {
     log("Failed to start the music >>> $e");
   }
+
   await Future.delayed(const Duration(milliseconds: 700)).then(
     (value) async {
       log("then called");
       Get.back();
       await audioPlayer.dispose();
+    },
+  );
+}
+
+successSoundPlayer() async {
+  final audioPlayer = AudioPlayer();
+  await audioPlayer.setAsset('assets/musics/excellent.mp3');
+  await audioPlayer.play().then(
+    (value) {
+      audioPlayer.dispose();
     },
   );
 }

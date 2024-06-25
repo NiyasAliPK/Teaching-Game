@@ -96,12 +96,14 @@ class EmptyOrFullController extends GetxController {
         break;
       }
     }
+    successSoundPlayer();
     checkForTaskCompletionTwo();
   }
 
   udpateProgress({required index}) {
     taskProgress[index] = true;
     update();
+    successSoundPlayer();
     checkForCompletionTaskOne();
   }
 
@@ -115,7 +117,7 @@ class EmptyOrFullController extends GetxController {
     }
     if (count == 2) {
       showDialogueForCompletion(callback: () {
-        Get.offAll(EmptyOrFullSlideTwo());
+        Get.to(() => const EmptyOrFullSlideTwo());
       });
     }
   }
@@ -123,7 +125,7 @@ class EmptyOrFullController extends GetxController {
   checkForTaskCompletionTwo() {
     if (fullAcceptedList.length == 4 && emptyAcceptedList.length == 4) {
       showDialogueForCompletion(callback: () {
-        Get.offAll(() => const EmptyOrFUllSlideThree());
+        Get.to(() => const EmptyOrFUllSlideThree());
       });
     }
   }
@@ -135,6 +137,7 @@ class EmptyOrFullController extends GetxController {
         break;
       }
     }
+    successSoundPlayer();
     checkForTaskCompletionThree();
     update();
   }

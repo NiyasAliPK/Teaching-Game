@@ -11,7 +11,7 @@ class HomeController extends GetxController with WidgetsBindingObserver {
   void onInit() {
     super.onInit();
     WidgetsBinding.instance.addObserver(this);
-    // _startMusic();
+    _startMusic();
   }
 
   @override
@@ -38,6 +38,7 @@ class HomeController extends GetxController with WidgetsBindingObserver {
   RxInt currentIndex = 0.obs;
   final AudioPlayer _audioPlayer = AudioPlayer();
   RxBool isMusicPaused = false.obs;
+  bool isManuallyPaused = false;
 
   final List<BottomNavigationBarItem> bottomNavigationBarItems = [
     const BottomNavigationBarItem(
@@ -63,7 +64,7 @@ class HomeController extends GetxController with WidgetsBindingObserver {
   ];
 
   List<Widget> screens = [
-    PreMathSkillsView(),
+    const PreMathSkillsView(),
     NumeralSkillsView(),
     Center(
       child: Text(
@@ -99,11 +100,13 @@ class HomeController extends GetxController with WidgetsBindingObserver {
   pauseOrResumeMusic() async {
     try {
       if (isMusicPaused.value) {
+        log("PAUSED");
         isMusicPaused.value = false;
         await _audioPlayer.play();
       } else {
         await _audioPlayer.pause();
         isMusicPaused.value = true;
+        log("RESUMED");
       }
     } catch (e) {
       log("Failed to pause the music >>> $e");

@@ -18,6 +18,8 @@ import 'package:teaching_game/app/modules/numeralSkills/bindings/numeral_skills_
 import 'package:teaching_game/app/modules/numeralSkills/views/numeral_skills_view.dart';
 import 'package:teaching_game/app/modules/preMathSkills/bindings/pre_math_skills_binding.dart';
 import 'package:teaching_game/app/modules/preMathSkills/views/pre_math_skills_view.dart';
+import 'package:teaching_game/app/modules/shapes/bindings/shapes_binding.dart';
+import 'package:teaching_game/app/modules/shapes/views/shapes_view.dart';
 
 part 'app_routes.dart';
 
@@ -34,7 +36,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PRE_MATH_SKILLS,
-      page: () => PreMathSkillsView(),
+      page: () => const PreMathSkillsView(),
       binding: PreMathSkillsBinding(),
     ),
     GetPage(
@@ -44,12 +46,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.BIG_OR_SMALL,
-      page: () => BigOrSmallView(),
+      page: () => const BigOrSmallView(),
       binding: BigOrSmallBinding(),
     ),
     GetPage(
       name: _Paths.INTRO_VIDEO,
-      page: () => IntroVideoView(),
+      page: () => const IntroVideoView(index: 0, path: ''),
       binding: IntroVideoBinding(),
     ),
     GetPage(
@@ -71,6 +73,11 @@ class AppPages {
       name: _Paths.SAME_OR_DIFFERENT,
       page: () => SameOrDifferentView(),
       binding: SameOrDifferentBinding(),
+    ),
+    GetPage(
+      name: _Paths.SHAPES,
+      page: () => ShapesView(),
+      binding: ShapesBinding(),
     ),
   ];
 }

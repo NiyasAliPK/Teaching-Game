@@ -13,6 +13,7 @@ abstract class Routes {
   static const MORE_LESS = _Paths.MORE_LESS;
   static const EMPTY_OR_FULL = _Paths.EMPTY_OR_FULL;
   static const SAME_OR_DIFFERENT = _Paths.SAME_OR_DIFFERENT;
+  static const SHAPES = _Paths.SHAPES;
 }
 
 abstract class _Paths {
@@ -25,4 +26,5 @@ abstract class _Paths {
   static const MORE_LESS = '/more-less';
   static const EMPTY_OR_FULL = '/empty-or-full';
   static const SAME_OR_DIFFERENT = '/same-or-different';
+  static const SHAPES = '/shapes';
 }

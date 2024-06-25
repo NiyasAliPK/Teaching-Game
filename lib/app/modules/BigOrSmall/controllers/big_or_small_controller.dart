@@ -135,6 +135,7 @@ class BigOrSmallController extends GetxController {
     for (var element in dragItems) {
       if (element.id == item.id) {
         element.isTaskObjectiveComplted = true;
+        successSoundPlayer();
         update();
         break;
       }
@@ -146,7 +147,7 @@ class BigOrSmallController extends GetxController {
     if (smallAccpetedList.length == 4 && bigAccpetedList.length == 4) {
       showDialogueForCompletion(
         callback: () {
-          Get.offAll(() => const BalloonPoperView());
+          Get.to(() => const BalloonPoperView());
         },
       );
     }
@@ -157,7 +158,7 @@ class BigOrSmallController extends GetxController {
       // if the loop completed without returning means all the balloons have popped
       showDialogueForCompletion(
         callback: () {
-          Get.offAll(() => const FishBowlView());
+          Get.to(() => const FishBowlView());
         },
       );
     }
@@ -174,6 +175,7 @@ class BigOrSmallController extends GetxController {
           break;
         }
       }
+      successSoundPlayer();
     } else {
       showDialogueForWrongAttempt();
     }
@@ -183,7 +185,7 @@ class BigOrSmallController extends GetxController {
     if (acceptedListOfFish.length == 6) {
       showDialogueForCompletion(
         callback: () {
-          Get.offAll(() => const SelectSmallAndBig());
+          Get.to(() => const SelectSmallAndBig());
         },
       );
     }
@@ -227,6 +229,7 @@ class BigOrSmallController extends GetxController {
         break;
       }
     }
+    successSoundPlayer();
     _checkForCompletionOfTaskFour();
   }
 
@@ -241,6 +244,7 @@ class BigOrSmallController extends GetxController {
           break;
         }
       }
+      successSoundPlayer();
       _checkForCompletionTaskTwo();
     } else {
       showDialogueForWrongAttempt();

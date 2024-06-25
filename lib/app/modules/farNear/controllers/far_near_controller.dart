@@ -11,6 +11,7 @@ class FarNearController extends GetxController {
 
   udpateProgress({required index}) {
     taskProgress[index] = true;
+    successSoundPlayer();
     update();
     if (checkForCompletion()) {
       showDialogueForCompletion(callback: () {

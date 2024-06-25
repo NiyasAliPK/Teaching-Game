@@ -12,6 +12,7 @@ class MoreLessController extends GetxController {
   udpateProgress({required index}) {
     taskProgress[index] = true;
     update();
+    successSoundPlayer();
     if (checkForCompletion()) {
       showDialogueForCompletion(callback: () {
         Get.offAll(() => HomeView());

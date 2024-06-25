@@ -8,7 +8,7 @@ import '../controllers/home_controller.dart';
 class HomeView extends GetView<HomeController> {
   HomeView({super.key});
 
-  final HomeController _controller = Get.put(HomeController());
+  final HomeController _controller = Get.put(HomeController(), permanent: true);
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +17,7 @@ class HomeView extends GetView<HomeController> {
         backgroundColor: primaryPink,
         onPressed: () {
           _controller.pauseOrResumeMusic();
+          _controller.isManuallyPaused = !_controller.isManuallyPaused;
         },
         child: Obx(
           () => Icon(_controller.isMusicPaused.value

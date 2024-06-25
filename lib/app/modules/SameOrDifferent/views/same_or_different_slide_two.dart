@@ -20,6 +20,9 @@ class _SameOrDifferentSlideTwoState extends State<SameOrDifferentSlideTwo> {
   void initState() {
     _controller.dragTargets.shuffle();
     _controller.draggables.shuffle();
+    showDialogueForInstructions(
+        instruction:
+            "Drag items from column A to column B to match them. Match all the items to complete the task.");
     super.initState();
   }
 
@@ -205,6 +208,25 @@ class _SameOrDifferentSlideTwoState extends State<SameOrDifferentSlideTwo> {
                 itemCount: _controller.draggables.length,
               ),
             ),
+            Positioned(
+              top: context.height * 0.1,
+              left: context.width * 0.125,
+              child: Row(
+                children: [
+                  const Text(
+                    "A",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: context.width * 0.68,
+                  ),
+                  const Text(
+                    'B',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),

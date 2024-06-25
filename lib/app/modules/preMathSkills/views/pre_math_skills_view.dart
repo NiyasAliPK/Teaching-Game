@@ -27,6 +27,7 @@ class _PreMathSkillsViewState extends State<PreMathSkillsView> {
         child: ListView.separated(
             itemBuilder: (context, index) => GestureDetector(
                   onTap: () async {
+                    _controller.navigateToModules(index: index);
                     // if (index == 0) {
                     //   _controller.navigateToModules(index: index);
                     // } else if (_controller.items[index - 1].progress == 1) {
@@ -38,7 +39,6 @@ class _PreMathSkillsViewState extends State<PreMathSkillsView> {
                     //     duration: Duration(seconds: 3),
                     //   ));
                     // }
-                    _controller.navigateToModules(index: index);
                   },
                   child: Container(
                     height: context.height / 5,
