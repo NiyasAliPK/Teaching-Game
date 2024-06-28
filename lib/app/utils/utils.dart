@@ -72,7 +72,10 @@ showDialogueForCompletion({required Function() callback}) async {
   }
 }
 
-showDialogueForInstructions({required String instruction}) async {
+showDialogueForInstructions(
+    {required String instruction, required String path}) async {
+  final audioPlayer = AudioPlayer();
+  log('PATH>>>>$path');
   await Future.delayed(const Duration(milliseconds: 500));
   Get.dialog(
       barrierDismissible: false,
@@ -108,6 +111,12 @@ showDialogueForInstructions({required String instruction}) async {
           ],
         ),
       ));
+  await audioPlayer.setAsset(path);
+  await audioPlayer.play().then(
+    (value) {
+      audioPlayer.dispose();
+    },
+  );
 }
 
 List<String> pathsOfFailedSounds = [
@@ -153,9 +162,17 @@ showDialogueForWrongAttempt() async {
   );
 }
 
+List<String> soundsForSuccess = [
+  'assets/musics/excellent (2).mp3',
+  'assets/musics/amazing.mp3',
+  'assets/musics/fantastic.mp3',
+  'assets/musics/great.mp3',
+  'assets/musics/very_good.mp3',
+  'assets/musics/wow.mp3'
+];
 successSoundPlayer() async {
   final audioPlayer = AudioPlayer();
-  await audioPlayer.setAsset('assets/musics/excellent.mp3');
+  await audioPlayer.setAsset(soundsForSuccess[math.Random().nextInt(6)]);
   await audioPlayer.play().then(
     (value) {
       audioPlayer.dispose();

@@ -88,7 +88,7 @@ class FarNearView extends GetView<FarNearController> {
                         ),
                         SizedBox(height: context.height * 0.005),
                         const Text(
-                          "Click on the furthest camel",
+                          "Click on the Distant camel",
                           style: TextStyle(color: Colors.black, fontSize: 20),
                         ),
                       ],
@@ -140,7 +140,7 @@ class FarNearView extends GetView<FarNearController> {
                         ),
                         SizedBox(height: context.height * 0.005),
                         const Text(
-                          "Click on the closest boat",
+                          "Click on the Nearest boat",
                           style: TextStyle(color: Colors.black, fontSize: 20),
                         ),
                       ],

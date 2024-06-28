@@ -19,20 +19,21 @@ class IntroVideoView extends StatefulWidget {
 }
 
 class _IntroVideoViewState extends State<IntroVideoView> {
-  FlickManager? flickManager;
-
   @override
   void initState() {
-    log("message>>>>${widget.path}");
-    flickManager = FlickManager(
+    _controller.flickManager = FlickManager(
+      onVideoEnd: () {
+        _controller.navigateScreen(index: widget.index);
+      },
       videoPlayerController: VideoPlayerController.asset(widget.path),
     );
+    _controller.showSkipButton();
     super.initState();
   }
 
   @override
   void dispose() {
-    flickManager?.dispose();
+    _controller.flickManager?.dispose();
 
     super.dispose();
   }
@@ -61,33 +62,29 @@ class _IntroVideoViewState extends State<IntroVideoView> {
                     DeviceOrientation.landscapeRight,
                     DeviceOrientation.landscapeLeft,
                   ],
-                  flickManager: flickManager!,
+                  flickManager: _controller.flickManager!,
                 ),
               ),
             ),
             Positioned(
-              bottom: context.width * 0.01,
-              right: context.width * 0.015,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: primaryPink.withOpacity(0.75)),
-                  onPressed: () async {
-                    await SystemChrome.setPreferredOrientations([
-                      DeviceOrientation.portraitUp,
-                      DeviceOrientation.portraitDown,
-                    ]);
-                    flickManager?.flickControlManager?.seekTo(Duration.zero);
-                    await flickManager?.flickControlManager?.pause();
-                    _controller.navigateScreen(index: widget.index);
-                    var homecontroller = Get.find<HomeController>();
-                    if (homecontroller.isManuallyPaused) return;
-                    homecontroller.pauseOrResumeMusic();
-                  },
-                  child: const Text(
-                    "Continue",
-                    style: TextStyle(color: Colors.white),
-                  )),
-            )
+                top: context.height * 0.075,
+                right: context.width * 0.015,
+                child: Obx(() => _controller.isVisible.value
+                    ? ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: primaryPink.withOpacity(0.75)),
+                        onPressed: () async {
+                          // await _controller.flickManager?.flickControlManager
+                          //     ?.seekTo(Duration.zero);
+                          await _controller.flickManager?.flickControlManager
+                              ?.pause();
+                          _controller.navigateScreen(index: widget.index);
+                        },
+                        child: const Text(
+                          "Skip",
+                          style: TextStyle(color: Colors.white),
+                        ))
+                    : const SizedBox.shrink()))
           ],
         ),
       ),

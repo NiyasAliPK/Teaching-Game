@@ -17,7 +17,8 @@ class _EmptyOrFullSlideTwoState extends State<EmptyOrFullSlideTwo> {
   void initState() {
     showDialogueForInstructions(
         instruction:
-            "Drag and drop empty items into the empty box and items which are not empty to the full box.");
+            "Drag and drop empty items into the empty box and items which are not empty to the full box.",
+        path: 'assets/musics/ef_ac_2.mp3');
     super.initState();
   }
 

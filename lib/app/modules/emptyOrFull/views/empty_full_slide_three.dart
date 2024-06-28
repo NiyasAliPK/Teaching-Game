@@ -20,7 +20,8 @@ class _EmptyOrFUllSlideThreeState extends State<EmptyOrFUllSlideThree> {
   void initState() {
     showDialogueForInstructions(
         instruction:
-            "Click on the empty items. Select all empty items to compelte the task.");
+            "Click on the empty items. Select all empty items to compelte the task.",
+        path: 'assets/musics/ef_ac_3.mp3');
     super.initState();
   }
 

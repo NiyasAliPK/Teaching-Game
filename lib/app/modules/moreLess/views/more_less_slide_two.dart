@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teaching_game/app/modules/home/views/home_view.dart';
@@ -53,39 +55,52 @@ class MoreLessSlideTwoView extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        Stack(
-                          children: [
-                            GestureDetector(
-                              onTap: controller.taskProgress[1]
-                                  ? null
-                                  : () {
-                                      showDialogueForWrongAttempt();
-                                    },
-                              child: Image.asset(
-                                'assets/images/ml_random_objects.jpeg',
-                                height: context.height / 1.75,
-                                width: context.width,
-                                fit: BoxFit.fitWidth,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                controller.udpateProgress(index: 1);
-                              },
-                              child: Container(
-                                color: Colors.transparent,
-                                margin: EdgeInsets.only(
-                                    top: context.height * 0.1,
-                                    left: context.width * 0.05),
-                                width: context.width * 0.22,
-                                height: context.height * 0.175,
-                                child: controller.taskProgress[1]
-                                    ? Image.asset(
-                                        'assets/images/green_tick.png')
-                                    : null,
-                              ),
-                            )
-                          ],
+                        SizedBox(
+                          width: context.width,
+                          height: context.height / 1.75,
+                          child: GridView.builder(
+                              itemCount: 4,
+                              gridDelegate:
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                      maxCrossAxisExtent: context.width / 2,
+                                      crossAxisSpacing: context.width * 0.05,
+                                      mainAxisSpacing: context.height * 0.025),
+                              itemBuilder: (context, mainIndex) => Container(
+                                    padding: EdgeInsets.only(
+                                        top: context.height * 0.03),
+                                    width: context.width * 0.05,
+                                    height: context.height * 0.2,
+                                    decoration: BoxDecoration(
+                                        color: mainIndex == 0
+                                            ? primaryGreen
+                                            : mainIndex == 1
+                                                ? primaryYellow
+                                                : mainIndex == 2
+                                                    ? primaryBlue
+                                                    : primaryPink,
+                                        borderRadius:
+                                            BorderRadius.circular(25)),
+                                    child: SizedBox(
+                                      width: context.width,
+                                      height: context.height / 3,
+                                      child: ItemsCard(
+                                          path: mainIndex == 0
+                                              ? 'assets/images/apple.png'
+                                              : mainIndex == 1
+                                                  ? 'assets/images/sm_school_bag.png'
+                                                  : mainIndex == 2
+                                                      ? 'assets/images/lollipop.png'
+                                                      : 'assets/images/beach_ball.png',
+                                          count: mainIndex == 0
+                                              ? 3
+                                              : mainIndex == 1
+                                                  ? 2
+                                                  : mainIndex == 2
+                                                      ? 4
+                                                      : 6,
+                                          controller: controller),
+                                    ),
+                                  )),
                         ),
                         SizedBox(height: context.height * 0.005),
                         const Text(
@@ -101,6 +116,39 @@ class MoreLessSlideTwoView extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ItemsCard extends StatelessWidget {
+  final int count;
+  final String path;
+  final MoreLessController controller;
+  const ItemsCard({
+    super.key,
+    required this.count,
+    required this.path,
+    required this.controller,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        if (count == 6) {
+          controller.udpateProgress(index: 1);
+        } else {
+          showDialogueForWrongAttempt();
+        }
+      },
+      child: GridView.builder(
+          itemCount: count,
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: context.width / 5,
+              childAspectRatio: 2.5,
+              crossAxisSpacing: context.width * 0.025,
+              mainAxisSpacing: context.height * 0.01),
+          itemBuilder: (context, mainIndex) => Image.asset(path)),
     );
   }
 }

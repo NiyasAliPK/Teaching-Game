@@ -20,7 +20,8 @@ class _SelectSmallAndBigState extends State<SelectSmallAndBig> {
     _controller.listForBigsAndSmalls.shuffle(Random());
     showDialogueForInstructions(
         instruction:
-            "Click on each item and select yellow star if the item is big and green tick if the item is small. Do this for all items to complete the task.");
+            "Click on each item and select yellow star if the item is big and green tick if the item is small. Do this for all items to complete the task.",
+        path: 'assets/musics/bg_ac_4.mp3');
 
     super.initState();
   }

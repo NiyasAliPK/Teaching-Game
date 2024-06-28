@@ -19,7 +19,8 @@ class _BigOrSmallViewState extends State<BigOrSmallView> {
   void initState() {
     showDialogueForInstructions(
         instruction:
-            "Drag and drop small items near to the small kid and big items to the big kid.");
+            "Drag and drop small items to the left box and big items to the right box.",
+        path: 'assets/musics/bg_ac_1.mp3');
     super.initState();
   }
 
@@ -138,57 +139,6 @@ class _BigOrSmallViewState extends State<BigOrSmallView> {
                   DragTarget(
                     onWillAcceptWithDetails: (details) {
                       final data = details.data as DraggableItemModel;
-                      if (data.value) {
-                        return true;
-                      } else {
-                        showDialogueForWrongAttempt();
-                        return false;
-                      }
-                    },
-                    onAcceptWithDetails: (data) {
-                      _controller.addToBigOrSmallList(
-                          item: data.data as DraggableItemModel);
-                    },
-                    builder: (context, candidateData, rejectedData) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          color: primaryBlue.withOpacity(0.35),
-                        ),
-                        width: context.width / 2.25,
-                        height: context.height / 4,
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: context.height / 6,
-                              child: const Center(child: Text('BIG')),
-                            ),
-                            Expanded(
-                                child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: _controller.bigAccpetedList.length,
-                              itemBuilder: (context, index) => Container(
-                                margin: EdgeInsets.all(context.height * 0.01),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(25)),
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          (_controller.bigAccpetedList[index])
-                                              .path)),
-                                ),
-                                width: context.width / 15,
-                              ),
-                            ))
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                  SizedBox(width: context.width * 0.05),
-                  DragTarget(
-                    onWillAcceptWithDetails: (details) {
-                      final data = details.data as DraggableItemModel;
                       if (!data.value) {
                         return true;
                       } else {
@@ -226,6 +176,57 @@ class _BigOrSmallViewState extends State<BigOrSmallView> {
                                   image: DecorationImage(
                                       image: AssetImage(
                                           (_controller.smallAccpetedList[index])
+                                              .path)),
+                                ),
+                                width: context.width / 15,
+                              ),
+                            ))
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                  SizedBox(width: context.width * 0.05),
+                  DragTarget(
+                    onWillAcceptWithDetails: (details) {
+                      final data = details.data as DraggableItemModel;
+                      if (data.value) {
+                        return true;
+                      } else {
+                        showDialogueForWrongAttempt();
+                        return false;
+                      }
+                    },
+                    onAcceptWithDetails: (data) {
+                      _controller.addToBigOrSmallList(
+                          item: data.data as DraggableItemModel);
+                    },
+                    builder: (context, candidateData, rejectedData) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(25),
+                          color: primaryBlue.withOpacity(0.35),
+                        ),
+                        width: context.width / 2.25,
+                        height: context.height / 4,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: context.height / 6,
+                              child: const Center(child: Text('BIG')),
+                            ),
+                            Expanded(
+                                child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: _controller.bigAccpetedList.length,
+                              itemBuilder: (context, index) => Container(
+                                margin: EdgeInsets.all(context.height * 0.01),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(25)),
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          (_controller.bigAccpetedList[index])
                                               .path)),
                                 ),
                                 width: context.width / 15,

@@ -34,7 +34,9 @@ class _ShapesSelectionViewState extends State<ShapesSelectionView> {
           ));
           return false;
         }
-        Get.offAll(() => ShapesView());
+        Get.delete<ShapesController>();
+
+        Get.off(() => ShapesView());
         return true;
       },
       child: Scaffold(
@@ -75,7 +77,7 @@ class _ShapesSelectionViewState extends State<ShapesSelectionView> {
                               widget.currentShape) {
                             _controller.updateSelectedShape(
                                 item: _controller.itemsForSelection[index]);
-                            _controller.checkForCompletionOfSelection(
+                            _controller.checkForCompletionOfSelectionOne(
                                 currentShape: widget.currentShape);
                           } else {
                             showDialogueForWrongAttempt();

@@ -22,7 +22,8 @@ class _SameOrDifferentSlideTwoState extends State<SameOrDifferentSlideTwo> {
     _controller.draggables.shuffle();
     showDialogueForInstructions(
         instruction:
-            "Drag items from column A to column B to match them. Match all the items to complete the task.");
+            "Drag items from column A to column B to match them. Match all the items to complete the task.",
+        path: 'assets/musics/sm_ac_2.mp3');
     super.initState();
   }
 

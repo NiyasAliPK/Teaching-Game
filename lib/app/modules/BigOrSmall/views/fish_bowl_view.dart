@@ -21,7 +21,8 @@ class _FishBowlViewState extends State<FishBowlView> {
   void initState() {
     showDialogueForInstructions(
         instruction:
-            "Drag and drop all the small fishes into the fish tank to complete the task.");
+            "Drag and drop all the small fishes into the fish tank to complete the task.",
+        path: 'assets/musics/bg_ac_3.mp3');
     _controller.fishes.shuffle();
     super.initState();
   }

@@ -87,6 +87,8 @@ class HomeController extends GetxController with WidgetsBindingObserver {
   ];
 
   _startMusic() async {
+    await Future.delayed(const Duration(seconds: 3));
+
     try {
       await _audioPlayer.setAsset('assets/musics/home_music.mp3');
       await _audioPlayer.setVolume(0.25);

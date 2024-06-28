@@ -23,7 +23,8 @@ class _BalloonPoperViewState extends State<BalloonPoperView> {
     _controller.balloonsToPop.shuffle();
     showDialogueForInstructions(
         instruction:
-            "Click on each big balloons to pop them, Pop all the big ones to complete the task.");
+            "Click on each big balloons to pop them, Pop all the big ones to complete the task.",
+        path: 'assets/musics/bg_ac_2.mp3');
     super.initState();
   }
 

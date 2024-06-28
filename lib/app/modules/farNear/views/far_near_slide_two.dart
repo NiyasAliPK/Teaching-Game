@@ -87,7 +87,7 @@ class FarNearSecondSlide extends StatelessWidget {
                               ),
                               SizedBox(height: context.height * 0.005),
                               const Text(
-                                "Click on the closest car",
+                                "Click on the Nearest car",
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 20),
                               ),
@@ -141,7 +141,7 @@ class FarNearSecondSlide extends StatelessWidget {
                               ),
                               SizedBox(height: context.height * 0.005),
                               const Text(
-                                "Click on the furthest tree",
+                                "Click on the Distant tree",
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 20),
                               ),

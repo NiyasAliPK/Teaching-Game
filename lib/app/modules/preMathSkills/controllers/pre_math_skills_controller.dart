@@ -50,6 +50,12 @@ class PreMathSkillsController extends GetxController {
         return 'assets/videos/big_small_video.mp4';
       case 1:
         return 'assets/videos/far_near_video.mp4';
+      case 2:
+        return 'assets/videos/more_less_video.mp4';
+      case 3:
+        return 'assets/videos/same_different_video.mp4';
+      case 4:
+        return 'assets/videos/empy_full_video.mp4';
       default:
         return '';
     }

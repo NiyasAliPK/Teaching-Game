@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:teaching_game/app/modules/home/views/home_view.dart';
+import 'package:teaching_game/app/modules/shapes/views/shape_drag_drop_view.dart';
 import 'package:teaching_game/app/modules/shapes/views/shapes_coloring_view.dart';
 import 'package:teaching_game/app/modules/shapes/views/shapes_selection_view.dart';
 import 'package:teaching_game/app/utils/utils.dart';
@@ -26,7 +27,7 @@ class ShapesView extends GetView<ShapesController> {
           ));
           return false;
         }
-        Get.off(() => HomeView());
+        Get.offAll(() => HomeView());
         return true;
       },
       child: Scaffold(
@@ -44,35 +45,41 @@ class ShapesView extends GetView<ShapesController> {
             GridView.builder(
               padding: EdgeInsets.symmetric(
                   horizontal: context.width * 0.05,
-                  vertical: context.height * 0.3),
+                  vertical: context.height * 0.2),
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: context.width / 2,
                   crossAxisSpacing: context.width * 0.025,
                   mainAxisSpacing: context.height * 0.0125),
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () async {
-                  // Get.to(() => ShapesColoringView(
-                  //       currentShape: index == 0
-                  //           ? ShapeType.circle
-                  //           : index == 1
-                  //               ? ShapeType.square
-                  //               : index == 2
-                  //                   ? ShapeType.rectangle
-                  //                   : index == 3
-                  //                       ? ShapeType.triangle
-                  //                       : ShapeType.circle,
-                  //     ));
-                  Get.to(() => ShapesSelectionView(
-                        currentShape: index == 0
-                            ? ShapeType.circle
-                            : index == 1
-                                ? ShapeType.square
-                                : index == 2
-                                    ? ShapeType.rectangle
-                                    : index == 3
-                                        ? ShapeType.triangle
-                                        : ShapeType.circle,
-                      ));
+                  if (index == 4) {
+                    Get.to(() => const ShapesColoringView());
+                    return;
+                  }
+
+                  index == 0 || index == 2
+                      ? Get.to(() => ShapesSelectionView(
+                            currentShape: index == 0
+                                ? ShapeType.circle
+                                : index == 1
+                                    ? ShapeType.square
+                                    : index == 2
+                                        ? ShapeType.rectangle
+                                        : index == 3
+                                            ? ShapeType.triangle
+                                            : ShapeType.circle,
+                          ))
+                      : Get.to(() => ShapeDragDropView(
+                            currentShape: index == 0
+                                ? ShapeType.circle
+                                : index == 1
+                                    ? ShapeType.square
+                                    : index == 2
+                                        ? ShapeType.rectangle
+                                        : index == 3
+                                            ? ShapeType.triangle
+                                            : ShapeType.circle,
+                          ));
                 },
                 child: Container(
                   height: context.height / 5,
@@ -85,21 +92,6 @@ class ShapesView extends GetView<ShapesController> {
                     // mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // Positioned(
-                      //   left: context.width * 0.1,
-                      //   top: context.height * 0.05,
-                      //   child: ShapeWidget(
-                      //       shape: index == 0
-                      //           ? ShapeType.circle
-                      //           : index == 1
-                      //               ? ShapeType.square
-                      //               : index == 2
-                      //                   ? ShapeType.rectangle
-                      //                   : index == 3
-                      //                       ? ShapeType.triangle
-                      //                       : ShapeType.circle,
-                      //       color: primaryPink),
-                      // ),
                       Center(
                         child: Text(
                           _controller.items[index].name,
@@ -109,23 +101,11 @@ class ShapesView extends GetView<ShapesController> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                      // index == 0
-                      //     ? const SizedBox()
-                      //     : _controller.items[index - 1].progress == 1
-                      //         ? const SizedBox()
-                      //         : Padding(
-                      //             padding: EdgeInsets.only(
-                      //                 top: context.height * 0.025,
-                      //                 left: context.width * 0.75),
-                      //             child: Icon(
-                      //               Icons.lock,
-                      //               color: Colors.grey[600],
-                      //             ))
                     ],
                   ),
                 ),
               ),
-              itemCount: 4,
+              itemCount: _controller.items.length,
             )
           ],
         ),
@@ -139,23 +119,17 @@ enum ShapeType { triangle, circle, square, rectangle }
 class ShapeWidget extends StatelessWidget {
   final ShapeType shape;
   final Color color;
+  final Size size;
 
-  const ShapeWidget({super.key, required this.shape, required this.color});
+  const ShapeWidget({
+    super.key,
+    required this.shape,
+    required this.color,
+    required this.size,
+  });
 
   @override
   Widget build(BuildContext context) {
-    Size size;
-    switch (shape) {
-      case ShapeType.square:
-        size = Size(context.width * 0.225, context.width * 0.0225);
-        break;
-      case ShapeType.rectangle:
-        size = Size(context.width * 0.3, context.width * 0.225);
-        break;
-      default:
-        size = const Size(100, 100);
-    }
-
     return CustomPaint(
       size: size,
       painter: ShapePainter(shape: shape, color: color),
