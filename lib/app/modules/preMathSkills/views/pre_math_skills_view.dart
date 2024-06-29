@@ -27,18 +27,18 @@ class _PreMathSkillsViewState extends State<PreMathSkillsView> {
         child: ListView.separated(
             itemBuilder: (context, index) => GestureDetector(
                   onTap: () async {
-                    _controller.navigateToModules(index: index);
-                    // if (index == 0) {
-                    //   _controller.navigateToModules(index: index);
-                    // } else if (_controller.items[index - 1].progress == 1) {
-                    //   _controller.navigateToModules(index: index);
-                    // } else {
-                    //   Get.showSnackbar(const GetSnackBar(
-                    //     message:
-                    //         "Please complete the previous level to play this one",
-                    //     duration: Duration(seconds: 3),
-                    //   ));
-                    // }
+                    // _controller.navigateToModules(index: index);
+                    if (index == 0) {
+                      _controller.navigateToModules(index: index);
+                    } else if (_controller.items[index - 1].progress == 1) {
+                      _controller.navigateToModules(index: index);
+                    } else {
+                      Get.showSnackbar(const GetSnackBar(
+                        message:
+                            "Please complete the previous level to play this one",
+                        duration: Duration(seconds: 3),
+                      ));
+                    }
                   },
                   child: Container(
                     height: context.height / 5,
@@ -57,7 +57,7 @@ class _PreMathSkillsViewState extends State<PreMathSkillsView> {
                             _controller.items[index].name,
                             style: TextStyle(
                                 fontSize: context.width * 0.075,
-                                color: primaryBlue.withOpacity(0.75),
+                                color: primaryGreen.withOpacity(0.75),
                                 fontWeight: FontWeight.bold),
                           ),
                         ),

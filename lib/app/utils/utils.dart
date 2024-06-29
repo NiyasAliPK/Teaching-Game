@@ -122,7 +122,8 @@ showDialogueForInstructions(
 List<String> pathsOfFailedSounds = [
   'assets/musics/surprise.mp3',
   'assets/musics/game_over.mp3',
-  'assets/musics/wrong_attempt.mp3'
+  'assets/musics/wrong_attempt.mp3',
+  'assets/musics/oops.mp3'
 ];
 showDialogueForWrongAttempt() async {
   final audioPlayer = AudioPlayer();
@@ -138,7 +139,9 @@ showDialogueForWrongAttempt() async {
             color: Colors.transparent,
             child: Center(
               child: Lottie.asset(
-                'assets/animations/wrong.json',
+                math.Random().nextInt(2).isEven
+                    ? 'assets/animations/wrong.json'
+                    : 'assets/animations/wrong_2.json',
                 repeat: false,
               ),
             ),
@@ -147,7 +150,7 @@ showDialogueForWrongAttempt() async {
         ],
       ));
   try {
-    await audioPlayer.setAsset(pathsOfFailedSounds[math.Random().nextInt(3)]);
+    await audioPlayer.setAsset(pathsOfFailedSounds[math.Random().nextInt(4)]);
     await audioPlayer.play();
   } catch (e) {
     log("Failed to start the music >>> $e");

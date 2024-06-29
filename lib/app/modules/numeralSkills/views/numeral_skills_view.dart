@@ -27,7 +27,7 @@ class NumeralSkillsView extends GetView<NumeralSkillsController> {
                       _controller.items[index],
                       style: TextStyle(
                           fontSize: context.width * 0.075,
-                          color: primaryGreen.withOpacity(0.75),
+                          color: primaryBlue.withOpacity(0.75),
                           fontWeight: FontWeight.bold),
                     ),
                   ),

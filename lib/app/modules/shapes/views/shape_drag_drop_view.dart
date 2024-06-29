@@ -54,7 +54,7 @@ class _ShapeDragDropViewState extends State<ShapeDragDropView> {
                     height: context.height / 1.7,
                     width: context.width - 20,
                     decoration: BoxDecoration(
-                        color: primaryBlue.withOpacity(0.25),
+                        color: primaryRed.withOpacity(0.5),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(25))),
                     child: GetBuilder<ShapesController>(builder: (controller) {
@@ -133,7 +133,7 @@ class _ShapeDragDropViewState extends State<ShapeDragDropView> {
                       margin: EdgeInsets.only(left: context.width * 0.0225),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(25),
-                        color: primaryBlue.withOpacity(0.35),
+                        color: primaryRed.withOpacity(0.5),
                       ),
                       width: context.width - 20,
                       height: context.height / 4,

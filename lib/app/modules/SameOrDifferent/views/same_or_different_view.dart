@@ -59,7 +59,7 @@ class SameOrDifferentView extends GetView<SameOrDifferentController> {
                     Stack(
                       children: [
                         Image.asset(
-                          'assets/images/sm_image_one.jpg',
+                          'assets/images/samediff_1.jpg',
                           fit: BoxFit.fitWidth,
                         ),
                       ],
@@ -95,7 +95,7 @@ class SameOrDifferentView extends GetView<SameOrDifferentController> {
                                       showDialogueForWrongAttempt();
                                     },
                               child: Image.asset(
-                                'assets/images/sm_image_two.jpg',
+                                'assets/images/samediff_2.jpg',
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
@@ -171,9 +171,9 @@ class SameOrDifferentView extends GetView<SameOrDifferentController> {
                               child: Container(
                                 color: Colors.transparent,
                                 margin: EdgeInsets.only(
-                                    left: context.width * 0.4,
+                                    left: context.width * 0.325,
                                     top: context.height * 0.2225),
-                                width: context.width * 0.2,
+                                width: context.width * 0.25,
                                 height: context.height * 0.055,
                                 child: _controller.taskProgress[4]
                                     ? Image.asset(

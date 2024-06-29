@@ -72,23 +72,32 @@ class _ShapesColoringViewState extends State<ShapesColoringView> {
                             child: Draggable(
                               data: _controller.colors[index],
                               feedback: Container(
-                                height: context.height * 0.07,
-                                width: context.width * 0.15,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: _controller.colors[index]),
-                              ),
+                                  height: context.height * 0.07,
+                                  width: context.width * 0.15,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: _controller.colors[index]),
+                                  child: Icon(
+                                    Icons.brush,
+                                    size: context.width * 0.1,
+                                    color: Colors.white,
+                                  )),
                               child: Container(
                                 height: context.height * 0.07,
                                 width: context.width * 0.15,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     color: _controller.colors[index]),
+                                child: Icon(
+                                  Icons.brush,
+                                  size: context.width * 0.1,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
                       separatorBuilder: (context, index) => SizedBox(
-                            width: context.width * 0.1,
+                            width: context.width * 0.09,
                           ),
                       itemCount: _controller.colors.length),
                 ),
@@ -112,56 +121,63 @@ class _ShapesColoringViewState extends State<ShapesColoringView> {
                     margin: EdgeInsets.all(context.width * 0.025),
                     padding: EdgeInsets.all(context.width * 0.03),
                     width: context.width,
-                    height: context.height / 1.7,
+                    // height: context.height / 1.7,
                     decoration: BoxDecoration(
                       color: primaryBlue.withOpacity(0.25),
                       borderRadius: const BorderRadius.all(Radius.circular(25)),
                     ),
                     child: GetBuilder<ShapesController>(builder: (controller) {
                       return Wrap(
+                          spacing: context.width * 0.04,
                           children: _controller.shapes.map(
-                        (item) {
-                          return item.color != Colors.white
-                              ? Padding(
-                                  padding: EdgeInsets.all(context.width * 0.01),
-                                  child: ShapeWidget2(
-                                    shape: item.shape,
-                                    color: item.color,
-                                  ),
-                                )
-                              : Padding(
-                                  padding: EdgeInsets.all(context.width * 0.01),
-                                  child: DragTarget(
-                                    onWillAcceptWithDetails: (details) {
-                                      if (details.data == Colors.red &&
-                                          item.shape == ShapeType.circle) {
-                                        return true;
-                                      } else if (details.data == Colors.green &&
-                                          item.shape == ShapeType.rectangle) {
-                                        return true;
-                                      } else if (details.data == Colors.blue &&
-                                          item.shape == ShapeType.triangle) {
-                                        return true;
-                                      } else {
-                                        // showDialogueForWrongAttempt();
-                                        return false;
-                                      }
-                                    },
-                                    onAcceptWithDetails: (details) {
-                                      _controller.updateColorOfCommon(
-                                          item: item,
-                                          color: details.data as Color);
-                                    },
-                                    builder: (context, candidateData,
-                                            rejectedData) =>
-                                        ShapeWidget2(
-                                      shape: item.shape,
-                                      color: item.color,
-                                    ),
-                                  ),
-                                );
-                        },
-                      ).toList());
+                            (item) {
+                              return item.color != Colors.white
+                                  ? Padding(
+                                      padding:
+                                          EdgeInsets.all(context.width * 0.01),
+                                      child: ShapeWidget2(
+                                        shape: item.shape,
+                                        color: item.color,
+                                      ),
+                                    )
+                                  : Padding(
+                                      padding:
+                                          EdgeInsets.all(context.width * 0.01),
+                                      child: DragTarget(
+                                        onWillAcceptWithDetails: (details) {
+                                          if (details.data == Colors.red &&
+                                              item.shape == ShapeType.circle) {
+                                            return true;
+                                          } else if (details.data ==
+                                                  Colors.green &&
+                                              item.shape ==
+                                                  ShapeType.rectangle) {
+                                            return true;
+                                          } else if (details.data ==
+                                                  Colors.blue &&
+                                              item.shape ==
+                                                  ShapeType.triangle) {
+                                            return true;
+                                          } else {
+                                            // showDialogueForWrongAttempt();
+                                            return false;
+                                          }
+                                        },
+                                        onAcceptWithDetails: (details) {
+                                          _controller.updateColorOfCommon(
+                                              item: item,
+                                              color: details.data as Color);
+                                        },
+                                        builder: (context, candidateData,
+                                                rejectedData) =>
+                                            ShapeWidget2(
+                                          shape: item.shape,
+                                          color: item.color,
+                                        ),
+                                      ),
+                                    );
+                            },
+                          ).toList());
                     }))
               ],
             )

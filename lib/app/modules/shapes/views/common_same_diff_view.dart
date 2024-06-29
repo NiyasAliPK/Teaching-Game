@@ -209,7 +209,7 @@ class _CommonSameDiffViewState extends State<CommonSameDiffView> {
                       width: context.width * 0.19,
                       height: context.height * 0.09,
                       decoration: BoxDecoration(
-                          color: primaryBlue, border: Border.all()),
+                          color: Colors.white, border: Border.all()),
                     ),
                   ),
                   SizedBox(height: context.height * 0.075),
@@ -227,7 +227,7 @@ class _CommonSameDiffViewState extends State<CommonSameDiffView> {
                     },
                     builder: (context, candidateData, rejectedData) =>
                         const ShapeWidget2(
-                            shape: ShapeType.triangle, color: primaryYellow),
+                            shape: ShapeType.triangle, color: Colors.white),
                   ),
                   SizedBox(height: context.height * 0.05),
                   DragTarget(
@@ -244,7 +244,7 @@ class _CommonSameDiffViewState extends State<CommonSameDiffView> {
                     },
                     builder: (context, candidateData, rejectedData) =>
                         const ShapeWidget2(
-                            shape: ShapeType.rectangle, color: primaryGreen),
+                            shape: ShapeType.rectangle, color: Colors.white),
                   ),
                   SizedBox(height: context.height * 0.05),
                   DragTarget(
@@ -261,7 +261,7 @@ class _CommonSameDiffViewState extends State<CommonSameDiffView> {
                     },
                     builder: (context, candidateData, rejectedData) =>
                         const ShapeWidget2(
-                            shape: ShapeType.circle, color: primaryRed),
+                            shape: ShapeType.circle, color: Colors.white),
                   ),
                 ],
               ),

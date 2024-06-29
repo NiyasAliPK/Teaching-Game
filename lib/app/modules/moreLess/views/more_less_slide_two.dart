@@ -92,9 +92,9 @@ class MoreLessSlideTwoView extends StatelessWidget {
                                                       ? 'assets/images/lollipop.png'
                                                       : 'assets/images/beach_ball.png',
                                           count: mainIndex == 0
-                                              ? 3
+                                              ? 5
                                               : mainIndex == 1
-                                                  ? 2
+                                                  ? 4
                                                   : mainIndex == 2
                                                       ? 4
                                                       : 6,
@@ -146,7 +146,7 @@ class ItemsCard extends StatelessWidget {
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: context.width / 5,
               childAspectRatio: 2.5,
-              crossAxisSpacing: context.width * 0.025,
+              crossAxisSpacing: 0,
               mainAxisSpacing: context.height * 0.01),
           itemBuilder: (context, mainIndex) => Image.asset(path)),
     );

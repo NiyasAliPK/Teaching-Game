@@ -20,6 +20,8 @@ import 'package:teaching_game/app/modules/preMathSkills/bindings/pre_math_skills
 import 'package:teaching_game/app/modules/preMathSkills/views/pre_math_skills_view.dart';
 import 'package:teaching_game/app/modules/shapes/bindings/shapes_binding.dart';
 import 'package:teaching_game/app/modules/shapes/views/shapes_view.dart';
+import 'package:teaching_game/app/modules/splashScreen/bindings/splash_screen_binding.dart';
+import 'package:teaching_game/app/modules/splashScreen/views/splash_screen_view.dart';
 
 part 'app_routes.dart';
 
@@ -78,6 +80,11 @@ class AppPages {
       name: _Paths.SHAPES,
       page: () => ShapesView(),
       binding: ShapesBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPLASH_SCREEN,
+      page: () => SplashScreenView(),
+      binding: SplashScreenBinding(),
     ),
   ];
 }

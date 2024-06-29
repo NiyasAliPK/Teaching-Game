@@ -97,7 +97,7 @@ class ShapesView extends GetView<ShapesController> {
                           _controller.items[index].name,
                           style: TextStyle(
                               fontSize: context.width * 0.07,
-                              color: primaryBlue.withOpacity(0.75),
+                              color: primaryGreen.withOpacity(0.75),
                               fontWeight: FontWeight.bold),
                         ),
                       ),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -56,43 +58,55 @@ class MoreLessView extends GetView<MoreLessController> {
                     ),
                     child: Column(
                       children: [
-                        Stack(
-                          children: [
-                            GestureDetector(
-                              onTap: _controller.taskProgress[0]
-                                  ? null
-                                  : () {
-                                      showDialogueForWrongAttempt();
-                                    },
-                              child: Image.asset(
-                                'assets/images/ml_fish.jpeg',
-                                height: context.height / 1.75,
-                                width: context.width,
-                                fit: BoxFit.fitWidth,
+                        SizedBox(
+                            width: context.width,
+                            height: context.height / 1.8,
+                            child: GetBuilder<MoreLessController>(
+                              builder: (controller) => GridView.builder(
+                                padding: EdgeInsets.zero,
+                                itemCount: controller.itemsForFishBowl.length,
+                                gridDelegate:
+                                    SliverGridDelegateWithMaxCrossAxisExtent(
+                                        maxCrossAxisExtent: context.width / 2),
+                                itemBuilder: (context, index) => Stack(
+                                  children: [
+                                    GestureDetector(
+                                        onTap: controller
+                                                    .itemsForFishBowl[index]
+                                                    .isTaskObjectiveComplted &&
+                                                _controller
+                                                    .itemsForFishBowl[index]
+                                                    .value
+                                            ? null
+                                            : () {
+                                                if (_controller
+                                                    .itemsForFishBowl[index]
+                                                    .value) {
+                                                  _controller.selectFishes(
+                                                      index: index);
+                                                } else {
+                                                  showDialogueForWrongAttempt();
+                                                }
+                                              },
+                                        child: Image.asset(controller
+                                            .itemsForFishBowl[index].path)),
+                                    _controller.itemsForFishBowl[index]
+                                            .isTaskObjectiveComplted
+                                        ? Container(
+                                            margin: EdgeInsets.only(
+                                                top: context.height * 0.05,
+                                                left: context.width * 0.1),
+                                            width: context.width * 0.2,
+                                            child: Image.asset(
+                                                'assets/images/green_tick.png'))
+                                        : const SizedBox()
+                                  ],
+                                ),
                               ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                _controller.udpateProgress(index: 0);
-                              },
-                              child: Container(
-                                color: Colors.transparent,
-                                margin: EdgeInsets.only(
-                                    top: context.height * 0.38,
-                                    left: context.width * 0.4),
-                                width: context.width * 0.5,
-                                height: context.height * 0.15,
-                                child: _controller.taskProgress[0]
-                                    ? Image.asset(
-                                        'assets/images/green_tick.png')
-                                    : null,
-                              ),
-                            )
-                          ],
-                        ),
-                        SizedBox(height: context.height * 0.005),
+                            )),
+                        SizedBox(height: context.height * 0.0075),
                         const Text(
-                          "Which bowl have more fishes ?",
+                          "Which bowl have more fishes in each row ?",
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       ],

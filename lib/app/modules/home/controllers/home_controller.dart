@@ -42,13 +42,13 @@ class HomeController extends GetxController with WidgetsBindingObserver {
 
   final List<BottomNavigationBarItem> bottomNavigationBarItems = [
     const BottomNavigationBarItem(
-        backgroundColor: primaryBlue,
+        backgroundColor: primaryGreen,
         icon: Icon(
           Icons.calculate_outlined,
         ),
         label: 'Pre-Math Skills'),
     const BottomNavigationBarItem(
-        backgroundColor: primaryGreen,
+        backgroundColor: primaryBlue,
         icon: Icon(
           Icons.numbers,
         ),
@@ -87,13 +87,14 @@ class HomeController extends GetxController with WidgetsBindingObserver {
   ];
 
   _startMusic() async {
+    log('start music called');
     await Future.delayed(const Duration(seconds: 3));
-
     try {
       await _audioPlayer.setAsset('assets/musics/home_music.mp3');
       await _audioPlayer.setVolume(0.25);
       await _audioPlayer.setLoopMode(LoopMode.all);
       await _audioPlayer.play();
+      log('Music played');
     } catch (e) {
       log("Failed to start the music >>> $e");
     }

@@ -20,14 +20,6 @@ class ShapesController extends GetxController {
     Colors.blue,
     Colors.yellow,
     Colors.green,
-    Colors.orange,
-    Colors.purple,
-    const Color(0xFFFF4500), // Red-Orange
-    const Color(0xFFFFD700), // Yellow-Orange
-    const Color(0xFFADFF2F), // Yellow-Green
-    const Color(0xFF00CED1), // Blue-Green
-    const Color(0xFF8A2BE2), // Blue-Purple
-    const Color(0xFFDA70D6), // Red-Purple
   ];
   @override
   onInit() {
@@ -112,7 +104,7 @@ class ShapesController extends GetxController {
     ShapeModel(
         shape: ShapeType.square,
         color: Colors.white,
-        path: 'assets/images/sp_chess.png'),
+        path: 'assets/images/chess.jpeg'),
     ShapeModel(
         shape: ShapeType.square,
         color: Colors.white,
@@ -183,11 +175,9 @@ class ShapesController extends GetxController {
     Colors.white,
     Colors.white,
     Colors.white,
-    Colors.white,
   ];
 
   List<Color> colorListForCircle = [
-    Colors.white,
     Colors.white,
     Colors.white,
     Colors.white,
@@ -204,8 +194,7 @@ class ShapesController extends GetxController {
     if (colorListForSquares.every((element) => element != Colors.white)) {
       showDialogueForCompletion(callback: () {
         Get.delete<ShapesController>();
-        Get.to(
-            () => const ShapesSelectionView(currentShape: ShapeType.rectangle));
+        Get.to(() => ShapesView());
       });
     }
   }
@@ -223,14 +212,13 @@ class ShapesController extends GetxController {
   }
 
   changeCircleColor({required int index, required Color color}) {
-    log('INDEX>>>$index');
     colorListForCircle[index] = color;
     update();
     successSoundPlayer();
     if (colorListForCircle.every((element) => element != Colors.white)) {
       showDialogueForCompletion(callback: () {
         Get.delete<ShapesController>();
-        Get.to(() => const ShapeDragDropView(currentShape: ShapeType.square));
+        Get.to(() => ShapesView());
       });
     }
   }

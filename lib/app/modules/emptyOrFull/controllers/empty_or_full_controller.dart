@@ -76,7 +76,7 @@ class EmptyOrFullController extends GetxController {
     DraggableItemModel(
         path: 'assets/images/empty_wallet.png', value: false, name: 'wallet'),
     DraggableItemModel(
-        path: 'assets/images/empty_glass.png', value: false, name: 'glass'),
+        path: 'assets/images/empty_bowl.png', value: false, name: 'glass'),
     DraggableItemModel(
         path: 'assets/images/empty_plate.png', value: false, name: 'plate'),
     DraggableItemModel(

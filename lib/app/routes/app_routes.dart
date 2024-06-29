@@ -14,6 +14,7 @@ abstract class Routes {
   static const EMPTY_OR_FULL = _Paths.EMPTY_OR_FULL;
   static const SAME_OR_DIFFERENT = _Paths.SAME_OR_DIFFERENT;
   static const SHAPES = _Paths.SHAPES;
+  static const SPLASH_SCREEN = _Paths.SPLASH_SCREEN;
 }
 
 abstract class _Paths {
@@ -27,4 +28,5 @@ abstract class _Paths {
   static const EMPTY_OR_FULL = '/empty-or-full';
   static const SAME_OR_DIFFERENT = '/same-or-different';
   static const SHAPES = '/shapes';
+  static const SPLASH_SCREEN = '/splash-screen';
 }

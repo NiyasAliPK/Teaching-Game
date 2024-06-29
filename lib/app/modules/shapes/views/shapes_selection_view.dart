@@ -56,9 +56,9 @@ class _ShapesSelectionViewState extends State<ShapesSelectionView> {
                   horizontal: context.width * 0.03,
                   vertical: context.height * 0.075),
               padding: EdgeInsets.all(context.width * 0.03),
-              height: context.height / 1.35,
+              height: context.height / 1.65,
               decoration: BoxDecoration(
-                color: primaryBlue.withOpacity(0.25),
+                color: primaryGreen.withOpacity(0.5),
                 borderRadius: const BorderRadius.all(Radius.circular(25)),
               ),
               child: GetBuilder<ShapesController>(
@@ -72,7 +72,6 @@ class _ShapesSelectionViewState extends State<ShapesSelectionView> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          log("message");
                           if (_controller.itemsForSelection[index].shape ==
                               widget.currentShape) {
                             _controller.updateSelectedShape(
@@ -108,7 +107,7 @@ class _ShapesSelectionViewState extends State<ShapesSelectionView> {
               ),
             ),
             Positioned(
-                bottom: context.height * 0.05,
+                bottom: context.height * 0.1,
                 left: context.width * 0.175,
                 child: Text(
                   "Select all the ${widget.currentShape.toString().replaceAll('ShapeType.', '')} items\nto complete the task.",

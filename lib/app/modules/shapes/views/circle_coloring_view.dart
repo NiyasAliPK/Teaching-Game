@@ -62,18 +62,27 @@ class _CircleColoringViewState extends State<CircleColoringView> {
                           child: Draggable(
                             data: _controller.colors[index],
                             feedback: Container(
-                              height: context.height * 0.07,
-                              width: context.width * 0.15,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: _controller.colors[index]),
-                            ),
+                                height: context.height * 0.07,
+                                width: context.width * 0.15,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: _controller.colors[index]),
+                                child: Icon(
+                                  Icons.brush,
+                                  size: context.width * 0.1,
+                                  color: Colors.white,
+                                )),
                             child: Container(
                               height: context.height * 0.07,
                               width: context.width * 0.15,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: _controller.colors[index]),
+                              child: Icon(
+                                Icons.brush,
+                                size: context.width * 0.1,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
@@ -87,7 +96,7 @@ class _CircleColoringViewState extends State<CircleColoringView> {
               top: context.height * 0.3,
               left: context.width * 0.05,
               child: const Text(
-                "Color the shape by dragging and droping\nthe colors from top.",
+                "Color the Circles by dragging and droping\nthe colors from top.",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
@@ -109,8 +118,8 @@ class _CircleColoringViewState extends State<CircleColoringView> {
                       Positioned(
                         top: context.height * 0.20,
                         child: getShape(
-                            index: 5,
-                            color: _controller.colorListForCircle[5],
+                            index: 1,
+                            color: _controller.colorListForCircle[1],
                             size: Size(context.width / 6, context.height / 10)),
                       ),
                       Positioned(
@@ -148,10 +157,24 @@ class _CircleColoringViewState extends State<CircleColoringView> {
                       Positioned(
                         left: context.width * 0.67,
                         top: context.height * 0.1,
-                        child: getShape(
-                            index: 1,
-                            color: _controller.colorListForCircle[1],
-                            size: Size(context.width / 4, context.height / 8)),
+                        child: Stack(
+                          children: [
+                            getShape(
+                                index: 5,
+                                color: Colors.lightBlue,
+                                size: Size(
+                                    context.width / 4, context.height / 8)),
+                            Positioned(
+                              top: 0,
+                              left: context.width * 0.05,
+                              child: Image.asset(
+                                'assets/images/face.png',
+                                width: context.width * 0.15,
+                                height: context.height * 0.125,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   );

@@ -62,23 +62,32 @@ class _TriangleColoringViewState extends State<TriangleColoringView> {
                           child: Draggable(
                             data: _controller.colors[index],
                             feedback: Container(
-                              height: context.height * 0.07,
-                              width: context.width * 0.15,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: _controller.colors[index]),
-                            ),
+                                height: context.height * 0.07,
+                                width: context.width * 0.15,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: _controller.colors[index]),
+                                child: Icon(
+                                  Icons.brush,
+                                  size: context.width * 0.1,
+                                  color: Colors.white,
+                                )),
                             child: Container(
                               height: context.height * 0.07,
                               width: context.width * 0.15,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   color: _controller.colors[index]),
+                              child: Icon(
+                                Icons.brush,
+                                size: context.width * 0.1,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
                     separatorBuilder: (context, index) => SizedBox(
-                          width: context.width * 0.1,
+                          width: context.width * 0.085,
                         ),
                     itemCount: _controller.colors.length),
               ),
@@ -87,7 +96,7 @@ class _TriangleColoringViewState extends State<TriangleColoringView> {
               top: context.height * 0.3,
               left: context.width * 0.05,
               child: const Text(
-                "Color the shape by dragging and droping\nthe colors from top.",
+                "Color the Triangles by dragging and\ndroping the colors from top.",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
@@ -117,11 +126,24 @@ class _TriangleColoringViewState extends State<TriangleColoringView> {
                         //HEAD
 
                         left: context.width * 0.35,
-                        top: context.height * 0.05,
-                        child: getShape(
-                            index: 1,
-                            color: _controller.colorListForTriangle[1],
-                            size: Size(context.width / 4, context.height / 8)),
+                        top: context.height * 0.04,
+                        child: Stack(
+                          children: [
+                            getShape(
+                                index: -1,
+                                color: Colors.lightBlue,
+                                size: Size(
+                                    context.width / 4, context.height / 8)),
+                            Positioned(
+                              top: context.height * 0.045,
+                              left: context.width * 0.07,
+                              child: Image.asset(
+                                'assets/images/face.png',
+                                width: context.width * 0.115,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                       Positioned(
                         //left hand
@@ -155,8 +177,8 @@ class _TriangleColoringViewState extends State<TriangleColoringView> {
                         top: context.height * 0.335,
                         left: context.width * 0.29,
                         child: getShape(
-                            index: 7,
-                            color: _controller.colorListForTriangle[7],
+                            index: 1,
+                            color: _controller.colorListForTriangle[1],
                             size: Size(context.width / 6, context.height / 10)),
                       ),
                       Positioned(

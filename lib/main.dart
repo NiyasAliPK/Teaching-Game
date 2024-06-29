@@ -6,6 +6,7 @@ import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:teaching_game/app/db/premath_hive.dart';
 import 'package:teaching_game/app/modules/home/views/home_view.dart';
+import 'package:teaching_game/app/modules/splashScreen/views/splash_screen_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeView(),
+      home: SplashScreenView(),
       theme: ThemeData(fontFamily: 'ADLaMDisplay'),
     );
   }
