@@ -12,7 +12,12 @@ import 'package:video_player/video_player.dart';
 class IntroVideoView extends StatefulWidget {
   final int index;
   final String path;
-  const IntroVideoView({super.key, required this.index, required this.path});
+  bool isFromShapes;
+  IntroVideoView(
+      {super.key,
+      required this.index,
+      required this.path,
+      this.isFromShapes = false});
 
   @override
   _IntroVideoViewState createState() => _IntroVideoViewState();
@@ -23,7 +28,8 @@ class _IntroVideoViewState extends State<IntroVideoView> {
   void initState() {
     _controller.flickManager = FlickManager(
       onVideoEnd: () {
-        _controller.navigateScreen(index: widget.index);
+        _controller.navigateScreen(
+            index: widget.index, isFromShapes: widget.isFromShapes);
       },
       videoPlayerController: VideoPlayerController.asset(widget.path),
     );
@@ -78,7 +84,9 @@ class _IntroVideoViewState extends State<IntroVideoView> {
                           //     ?.seekTo(Duration.zero);
                           await _controller.flickManager?.flickControlManager
                               ?.pause();
-                          _controller.navigateScreen(index: widget.index);
+                          _controller.navigateScreen(
+                              index: widget.index,
+                              isFromShapes: widget.isFromShapes);
                         },
                         child: const Text(
                           "Skip",

@@ -143,7 +143,7 @@ class _ShapeDragDropViewState extends State<ShapeDragDropView> {
                             height: context.height / 6,
                             child: Center(
                                 child: Text(
-                                    'DRAG AND DROP ALL THE ${widget.currentShape.toString().replaceAll('ShapeType.', '').toUpperCase()} HERE')),
+                                    'DRAG AND DROP ALL THE ${widget.currentShape.toString().replaceAll('ShapeType.', '').toUpperCase()} SHAPED OBJECTS HERE')),
                           ),
                           Expanded(
                               child: ListView.builder(

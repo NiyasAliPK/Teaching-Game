@@ -95,9 +95,11 @@ class _RectangleColoringViewState extends State<RectangleColoringView> {
             Positioned(
               top: context.height * 0.25,
               left: context.width * 0.05,
-              child: const Text(
-                "Color the shape by dragging and droping\nthe colors from top.",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              child: Text(
+                "Colour the Rectangles by dragging and\ndroping the colours from top.",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: context.width * 0.045),
               ),
             ),
             Positioned(
@@ -111,7 +113,7 @@ class _RectangleColoringViewState extends State<RectangleColoringView> {
                     left: context.width * 0.03),
                 height: context.height / 1.6,
                 decoration: BoxDecoration(
-                  color: primaryBlue.withOpacity(0.25),
+                  color: primaryRed.withOpacity(0.5),
                   borderRadius: const BorderRadius.all(Radius.circular(25)),
                 ),
                 child: GetBuilder<ShapesController>(builder: (_) {

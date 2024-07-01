@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:teaching_game/app/modules/home/controllers/home_controller.dart';
 import 'package:teaching_game/app/modules/home/views/home_view.dart';
-import 'package:teaching_game/app/modules/shapes/views/shape_drag_drop_view.dart';
+import 'package:teaching_game/app/modules/introVideo/views/intro_video_view.dart';
 import 'package:teaching_game/app/modules/shapes/views/shapes_coloring_view.dart';
-import 'package:teaching_game/app/modules/shapes/views/shapes_selection_view.dart';
 import 'package:teaching_game/app/utils/utils.dart';
 
 import '../controllers/shapes_controller.dart';
@@ -53,33 +53,17 @@ class ShapesView extends GetView<ShapesController> {
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () async {
                   if (index == 4) {
-                    Get.to(() => const ShapesColoringView());
+                    Get.to(() => ShapesColoringView());
                     return;
                   }
-
-                  index == 0 || index == 2
-                      ? Get.to(() => ShapesSelectionView(
-                            currentShape: index == 0
-                                ? ShapeType.circle
-                                : index == 1
-                                    ? ShapeType.square
-                                    : index == 2
-                                        ? ShapeType.rectangle
-                                        : index == 3
-                                            ? ShapeType.triangle
-                                            : ShapeType.circle,
-                          ))
-                      : Get.to(() => ShapeDragDropView(
-                            currentShape: index == 0
-                                ? ShapeType.circle
-                                : index == 1
-                                    ? ShapeType.square
-                                    : index == 2
-                                        ? ShapeType.rectangle
-                                        : index == 3
-                                            ? ShapeType.triangle
-                                            : ShapeType.circle,
-                          ));
+                  var home = Get.find<HomeController>();
+                  if (!home.isMusicPaused.value) {
+                    home.pauseOrResumeMusic();
+                  }
+                  Get.to(() => IntroVideoView(
+                      isFromShapes: true,
+                      index: index,
+                      path: _controller.getPathForVideo(index: index)));
                 },
                 child: Container(
                   height: context.height / 5,
@@ -96,7 +80,7 @@ class ShapesView extends GetView<ShapesController> {
                         child: Text(
                           _controller.items[index].name,
                           style: TextStyle(
-                              fontSize: context.width * 0.07,
+                              fontSize: context.width * 0.06,
                               color: primaryGreen.withOpacity(0.75),
                               fontWeight: FontWeight.bold),
                         ),

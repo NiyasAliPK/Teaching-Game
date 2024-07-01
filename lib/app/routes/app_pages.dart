@@ -53,7 +53,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.INTRO_VIDEO,
-      page: () => const IntroVideoView(index: 0, path: ''),
+      page: () => IntroVideoView(index: 0, path: ''),
       binding: IntroVideoBinding(),
     ),
     GetPage(

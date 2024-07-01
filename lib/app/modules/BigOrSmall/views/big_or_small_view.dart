@@ -205,7 +205,7 @@ class _BigOrSmallViewState extends State<BigOrSmallView> {
                       return Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(25),
-                          color: primaryYellow.withOpacity(0.5),
+                          color: primaryPink.withOpacity(0.5),
                         ),
                         width: context.width / 2.25,
                         height: context.height / 4,

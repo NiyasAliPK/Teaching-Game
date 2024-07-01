@@ -6,6 +6,7 @@ import 'package:teaching_game/app/db/premath_hive_box.dart';
 import 'package:teaching_game/app/modules/home/controllers/home_controller.dart';
 import 'package:teaching_game/app/modules/introVideo/views/intro_video_view.dart';
 import 'package:teaching_game/app/modules/preMathSkills/bindings/pre_math_skills_binding.dart';
+import 'package:teaching_game/app/modules/shapes/views/shapes_view.dart';
 
 class PreMathSkillsController extends GetxController {
   final PreMathHiveBoxController preMathHiveBoxController =
@@ -23,7 +24,6 @@ class PreMathSkillsController extends GetxController {
   ];
 
   getProgress() async {
-    log("Progress called");
     if (preMathHiveBoxController.premathBox.values.isNotEmpty) {
       progressList.clear();
       progressList.addAll(preMathHiveBoxController.premathBox.values);
@@ -35,8 +35,12 @@ class PreMathSkillsController extends GetxController {
 
   navigateToModules({required int index}) {
     var home = Get.find<HomeController>();
-    if (!home.isMusicPaused.value) {
+    if (!home.isMusicPaused.value && index != 5) {
       home.pauseOrResumeMusic();
+    }
+    if (index == 5) {
+      Get.to(() => ShapesView());
+      return;
     }
     Get.off(() => IntroVideoView(
           index: index,

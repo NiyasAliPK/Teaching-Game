@@ -95,9 +95,11 @@ class _SquareColoringViewState extends State<SquareColoringView> {
             Positioned(
               top: context.height * 0.3,
               left: context.width * 0.05,
-              child: const Text(
-                "Color the shape by dragging and droping\nthe colors from top.",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              child: Text(
+                "Colour the Squares by dragging and droping\nthe colours from top.",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: context.width * 0.0425),
               ),
             ),
             Positioned(
@@ -110,7 +112,7 @@ class _SquareColoringViewState extends State<SquareColoringView> {
                     horizontal: context.width * 0.03),
                 height: context.height / 2,
                 decoration: BoxDecoration(
-                  color: primaryBlue.withOpacity(0.25),
+                  color: primaryRed.withOpacity(0.5),
                   borderRadius: const BorderRadius.all(Radius.circular(25)),
                 ),
                 child: GetBuilder<ShapesController>(builder: (_) {
@@ -128,12 +130,13 @@ class _SquareColoringViewState extends State<SquareColoringView> {
                       ),
                       Positioned(
                         //HEAD
-                        // top: context.height * 0.00,
+                        top: context.height * 0.0115,
                         left: context.width * 0.35,
                         child: getShape(
                             index: 1,
                             color: _controller.colorListForSquares[1],
-                            size: Size(context.width / 4, context.height / 8)),
+                            size:
+                                Size(context.width / 4, context.height / 8.75)),
                       ),
                       Positioned(
                         //left hand

@@ -209,7 +209,8 @@ class _CommonSameDiffViewState extends State<CommonSameDiffView> {
                       width: context.width * 0.19,
                       height: context.height * 0.09,
                       decoration: BoxDecoration(
-                          color: Colors.white, border: Border.all()),
+                          color: Colors.white,
+                          border: Border.all(width: context.width * 0.005)),
                     ),
                   ),
                   SizedBox(height: context.height * 0.075),

@@ -41,9 +41,19 @@ class _BalloonPoperViewState extends State<BalloonPoperView> {
               end: Alignment.topCenter,
               colors: [Color(0xFFAEEEEE), Color(0xFF20B2AA)],
             ))),
+            Positioned(
+              left: context.width * 0.045,
+              bottom: context.height / 8,
+              child: SizedBox(
+                width: context.width,
+                child: Text(
+                    style: TextStyle(
+                        fontSize: context.width * 0.05, color: Colors.red),
+                    "Click on the big balloons to pop them,\nPop all of them to complete."),
+              ),
+            ),
             Padding(
-              padding: EdgeInsets.only(
-                  top: context.width * 0.25, left: context.width * 0.075),
+              padding: EdgeInsets.only(top: context.width * 0.25),
               child: GetBuilder<BigOrSmallController>(
                 builder: (controller) => Wrap(
                   alignment: WrapAlignment.center,
@@ -74,17 +84,6 @@ class _BalloonPoperViewState extends State<BalloonPoperView> {
                 ),
               ),
             ),
-            Positioned(
-              left: context.width * 0.045,
-              bottom: context.height / 8,
-              child: SizedBox(
-                width: context.width,
-                child: Text(
-                    style: TextStyle(
-                        fontSize: context.width * 0.05, color: Colors.red),
-                    "Click on the big balloons to pop them,\nPop all of them to complete."),
-              ),
-            )
           ],
         ),
       ),

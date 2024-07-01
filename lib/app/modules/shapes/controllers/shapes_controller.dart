@@ -104,7 +104,7 @@ class ShapesController extends GetxController {
     ShapeModel(
         shape: ShapeType.square,
         color: Colors.white,
-        path: 'assets/images/chess.jpeg'),
+        path: 'assets/images/chess_2.jpeg'),
     ShapeModel(
         shape: ShapeType.square,
         color: Colors.white,
@@ -326,6 +326,20 @@ class ShapesController extends GetxController {
           Get.to(() => ShapesView());
         },
       );
+    }
+  }
+
+  String getPathForVideo({required int index}) {
+    if (index == 0) {
+      return 'assets/videos/Circle.mp4';
+    } else if (index == 1) {
+      return 'assets/videos/Square.mp4';
+    } else if (index == 2) {
+      return 'assets/videos/rectangle.mp4';
+    } else if (index == 3) {
+      return 'assets/videos/Triangle.mp4';
+    } else {
+      return '';
     }
   }
 }

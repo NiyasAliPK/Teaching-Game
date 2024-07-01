@@ -224,8 +224,8 @@ class SameOrDifferentView extends GetView<SameOrDifferentController> {
                                 margin: EdgeInsets.only(
                                     left: context.width * 0.625,
                                     top: context.height * 0.235),
-                                width: context.width * 0.1,
-                                height: context.height * 0.04,
+                                width: context.width * 0.125,
+                                height: context.height * 0.0525,
                                 child: _controller.taskProgress[7]
                                     ? Image.asset(
                                         'assets/images/green_tick.png')
