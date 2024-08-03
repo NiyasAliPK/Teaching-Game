@@ -10,7 +10,7 @@ class SplashScreenView extends GetView<SplashScreenController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Image.asset('assets/icon/icon.png'),
+        child: Image.asset('assets/icon/MATHSMELON LOGO.png'),
       ),
     );
   }
